@@ -11,8 +11,12 @@
   </head>
 
   <body>
-    <%#<p class="notice"><%= notice %><%#</p> 
-    <%#<p class="alert"><%= alert %><%#</p> %> 
+    <% if notice %>
+      <div class="alert alert-primary m-0" role="alert"><%= notice %></div> 
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger m-0" role="alert"><%= alert %></div> 
+    <% end %>
     <%= yield %>
   </body>
 </html>
