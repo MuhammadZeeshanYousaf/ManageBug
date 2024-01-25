@@ -1,26 +1,18 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row g-0">
+  <div class="col-md-4 page-left-image">
+    <div class="d-flex align-items-end h-100">
+      <div class="ms-4 mb-4 d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="41" height="40" viewBox="0 0 41 40" fill="none">
+        <path d="M21.8141 0V8.48921C27.3037 9.35252 31.6377 14.1007 31.6377 19.8561C31.6377 26.1871 26.4369 31.3669 20.0805 31.3669C14.013 31.3669 9.10124 26.7626 8.52339 20.8633H0C0.577857 31.5108 9.24571 40 20.0805 40C31.2043 40 40.161 31.0791 40.161 20C40.161 9.4964 32.0711 1.00719 21.8141 0Z" fill="white"/>
+        <path d="M19.5027 0H0V8.34532H19.5027V0Z" fill="white"/>
+        <path d="M15.0243 10.5037H0V18.9929H15.0243V10.5037Z" fill="white"/>
+      </svg>
+      <div class="text-white ms-2">Manage</div>
+      <div class="text-white fw-light">&nbsp;Bug</div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  </div>
+  <div class="col-md-8 d-flex align-items-center flex-column">
+    <%= render "login_form" %>
+  </div>
+</div>
