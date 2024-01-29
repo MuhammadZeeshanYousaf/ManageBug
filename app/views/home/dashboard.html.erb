@@ -11,7 +11,11 @@
        <form class="d-flex h-100" role='search'>
         <input class="form-control me-2 ms-2 rounded-2 border-0 h-100" type="search" placeholder="Search for projects here" style="background-color: #F1F1F1;"  />
        </form>
-       <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Bug</button>
+       <% if current_user.role == "manager" %>
+        <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Project</button>
+       <% elsif current_user.role == "QA" %>
+        <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Bug</button>
+       <% end %>
        <div class="dropdown h-75 py-2 px-2 ms-2">
          <div role="button" data-bs-toggle="dropdown">
            Sort by
@@ -62,6 +66,7 @@
               <div class="custom-text-color mt-2">
                 Task Done: <span class="text-black">02/60</span>
               </div>
+              <div>This user can update project? <%= can? :update, @project %></div>
             </div>
           </div>
         </div>
@@ -74,7 +79,7 @@
 
 <div class="container py-2 d-flex bg-white justify-content-between align-items-center" style="min-height: 6vh;">
   <div class="page_info">
-    <%= page_entries_info @users %>
+    <%= page_entries_info @projects %>
   </div>
   <div class="d-flex">
     <div class="d-flex align-items-center me-3">
@@ -90,7 +95,7 @@
       </div>
     </div>
     <div class="digg_pagination">
-      <%= will_paginate @users, :previous_label => "<", :next_label => ">" %>
+      <%= will_paginate @projects, :previous_label => "<", :next_label => ">" %>
     </div>
   </div>
 </div>
