@@ -1,0 +1,159 @@
+<div class="dashboard-background" style="min-height: 94vh;">
+  <div class='container'>
+    <%= render "layouts/messages" %>
+    <%= render "shared/navigation_bar" %>
+    <%# <%= render "shared/errors", obj: @project %>
+    <div class="d-flex align-items-center justify-content-between" style="height: 72px;">
+      <div class="d-flex align-items-center h-75">
+        <div class="h-100 bg-success" style="width: 4px;"></div>
+        <div class="d-block mx-3">
+          <div class="fw-bold">Projects</div>
+          <div class="fw-light custom-text-color">Hi DeVisnext, welcome to ManageBug</div>
+        </div>
+        <form class="d-flex h-100" role='search'>
+          <input class="form-control me-2 ms-2 rounded-2 border-0 h-100" type="search" placeholder="Search for projects here" style="background-color: #F1F1F1;"  />
+        </form>
+        <% if current_user.role == "manager" %>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#new_project_modal" class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Project</button>
+        <% elsif current_user.role == "QA" %>
+          <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Bug</button>
+        <% end %>
+        <div class="dropdown h-75 py-2 px-2 ms-2">
+          <div role="button" data-bs-toggle="dropdown">
+            Sort by
+            <img src="/images/chevron-down.png" class="ms-2" />
+          </div>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">This is my sorting dropdown</li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="dropdown h-75 p-3 ms-2">
+          <div role="button" data-bs-toggle="dropdown">
+            My Project
+            <img src="/images/chevron-down.png" class="ms-2" />
+          </div>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">This is my projects dropdown</li>
+          </ul>
+        </div>
+        <div class="p-2 bg-primary d-flex align-items-center justify-content-center rounded-2" style="height: 45px; width: 50px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12.7102 0V4.94631C15.9088 5.44932 18.434 8.2159 18.434 11.5693C18.434 15.2581 15.4037 18.2762 11.7001 18.2762C8.16481 18.2762 5.30292 15.5935 4.96622 12.1562H0C0.336693 18.36 5.38709 23.3063 11.7001 23.3063C18.1814 23.3063 23.4002 18.1085 23.4002 11.6532C23.4002 5.53316 18.6865 0.58685 12.7102 0Z" fill="white"/>
+            <path d="M11.3634 0H0V4.86247H11.3634V0Z" fill="white"/>
+            <path d="M8.75402 6.12012H0V11.0664H8.75402V6.12012Z" fill="white"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <%# CARDS %>
+    <div class="container my-5">
+      <div class="row g-4">
+        <% @projects.each do |project| %>
+          <div class="col-4">
+            <div class='card border-0 bg-white rounded-2 shadow'>
+              <div class="card-body p-4">
+                <% if project.image.attached? %>
+                  <div class="d-inline-block">
+                    <%= image_tag(project.image, style: "width: 54px; height: 54px;", class: "rounded-2") %>
+                  </div>
+                <% else %>
+                  <div class="p-2 d-inline-block rounded-2" style="background-color: #67CFCF;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+                      <path d="M26.0687 23.2557C26.0643 23.5941 25.9596 23.9236 25.7679 24.2024C25.5762 24.4813 25.3062 24.6971 24.9918 24.8225C24.6775 24.9479 24.3331 24.9773 24.0021 24.9069C23.6711 24.8366 23.3683 24.6696 23.1322 24.4272C22.8961 24.1848 22.7371 23.8779 22.6754 23.5451C22.6138 23.2124 22.6522 22.8688 22.7857 22.5579C22.9193 22.247 23.1421 21.9826 23.4259 21.7983C23.7097 21.614 24.0418 21.518 24.3802 21.5224C24.834 21.5284 25.2668 21.7143 25.5834 22.0394C25.9001 22.3644 26.0746 22.802 26.0687 23.2557ZM14.115 21.3881C13.7766 21.3836 13.4445 21.4796 13.1607 21.664C12.8769 21.8483 12.6541 22.1126 12.5205 22.4235C12.3869 22.7344 12.3485 23.078 12.4102 23.4107C12.4719 23.7435 12.6308 24.0505 12.867 24.2929C13.1031 24.5353 13.4058 24.7022 13.7368 24.7726C14.0679 24.8429 14.4123 24.8135 14.7266 24.6881C15.0409 24.5627 15.311 24.347 15.5027 24.0681C15.6944 23.7892 15.799 23.4597 15.8035 23.1213C15.8094 22.6676 15.6348 22.2301 15.3182 21.905C15.0015 21.58 14.5687 21.394 14.115 21.3881ZM35.1709 25.086L35.1262 28.5078C35.1182 29.1128 34.8703 29.6899 34.4369 30.1121C34.0035 30.5343 33.4201 30.767 32.8151 30.7591L5.44117 30.4007C4.83617 30.3928 4.25909 30.1449 3.83689 29.7115C3.41469 29.2781 3.18195 28.6947 3.18987 28.0897L3.23261 24.8248C3.25972 22.6263 3.73492 20.4564 4.62915 18.4479C5.52339 16.4393 6.81787 14.6342 8.43347 13.1429L4.90156 9.53171C4.72258 9.30772 4.63331 9.02516 4.65113 8.739C4.66894 8.45284 4.79255 8.18353 4.99793 7.98347C5.2033 7.7834 5.47575 7.66687 5.76228 7.65656C6.04881 7.64624 6.32893 7.74288 6.54816 7.92766L10.2204 11.7118C12.9244 9.84946 16.1386 8.86997 19.4216 8.90784C22.7046 8.94571 25.8954 9.99909 28.5556 11.9233L32.2968 8.26473C32.5208 8.08575 32.8033 7.99648 33.0895 8.01429C33.3757 8.0321 33.645 8.15572 33.845 8.36109C34.0451 8.56647 34.1616 8.83892 34.1719 9.12545C34.1823 9.41198 34.0856 9.6921 33.9008 9.91133L30.3045 13.4007L30.6283 13.7186C32.101 15.2178 33.2611 16.9948 34.0409 18.9462C34.8208 20.8977 35.2049 22.9848 35.1709 25.086ZM32.8898 25.0562C32.9195 23.2544 32.5906 21.4647 31.9222 19.7912C31.2537 18.1178 30.2591 16.594 28.9961 15.3086C28.6518 14.962 28.2896 14.6336 27.911 14.3247C27.9111 14.3209 27.9096 14.3173 27.907 14.3146C27.9043 14.3119 27.9007 14.3103 27.897 14.3103C25.5014 12.3227 22.4945 11.2209 19.382 11.19L19.3392 11.1895C11.811 11.1194 5.61325 17.2555 5.51377 24.8547L5.47103 28.1196L32.845 28.4779L32.8898 25.0562Z" fill="black"/>
+                    </svg>
+                  </div>
+                <% end %>
+                <div class="mt-3 fw-bold">
+                  <%= project.name %>
+                </div>
+                <div class="custom-text-color mt-2" style="font-size: 14px;">
+                  <%= project.details %>
+                </div>
+                <div class="custom-text-color mt-2">
+                  Task Done: <span class="text-black">02/60</span>
+                </div>
+                <div>This user can update project? <%= can? :update, @project %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-2 d-flex bg-white justify-content-between align-items-center" style="min-height: 6vh;">
+  <div class="page_info">
+    <%= page_entries_info @projects %>
+  </div>
+  <div class="d-flex">
+    <div class="d-flex align-items-center me-3">
+      <span class="me-2">
+        Display
+      </span>
+      <div>
+        <select class="form-select">
+          <option>5</option>
+          <option selected>10</option>
+          <option>25</option>
+        </select>
+      </div>
+    </div>
+    <div class="digg_pagination">
+      <%= will_paginate @projects, :previous_label => "<", :next_label => ">" %>
+    </div>
+  </div>
+</div>
+<%# NEW PROJECT MODAL %>
+<div class="modal fade modal-lg" id="new_project_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new Project</h1>
+        <%# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> %>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@project, :html => { class: "form-horizontal", role: "form" }) do |f| %>
+          <div class="row mb-5">
+            <div class="col-md-8">
+              <div class="form-control border-0">
+                <%= f.label :name, "Project Name", class: "fw-bold" %>
+                <%= f.text_field :name, class: "form-control", placeholder: "Enter project name" %>
+              </div>
+              <div class="form-control border-0 mt-2">
+                <%= f.label :details, "Short Details", class: "fw-bold" %>
+                <%= f.text_field :details, class: "form-control", placeholder: "Enter details here" %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-control border-0" data-controller="previews">
+                <%# <%= f.label :image, style: "display: block;", for: "image-btn" %>
+                <label for="image-btn" class="image-label" data-previews-target="showLabel">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="53" height="54" viewBox="0 0 53 54" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7724 12.1415C15.86 11.4147 17.1387 11.0269 18.4468 11.0269C19.2866 11.0269 19.9674 11.7077 19.9674 12.5475C19.9674 13.3873 19.2866 14.0681 18.4468 14.0681C17.7402 14.0681 17.0495 14.2776 16.462 14.6701C15.8746 15.0627 15.4167 15.6206 15.1463 16.2734C14.8759 16.9262 14.8052 17.6445 14.943 18.3374C15.0808 19.0304 15.4211 19.667 15.9207 20.1666C16.4203 20.6662 17.0568 21.0064 17.7498 21.1443C18.4428 21.2821 19.1611 21.2114 19.8139 20.941C20.4666 20.6706 21.0246 20.2127 21.4171 19.6252C21.8097 19.0377 22.0192 18.347 22.0192 17.6405C22.0192 16.8007 22.7 16.1199 23.5398 16.1199C24.3796 16.1199 25.0604 16.8007 25.0604 17.6405C25.0604 18.9485 24.6725 20.2272 23.9458 21.3148C23.2191 22.4024 22.1862 23.2501 20.9777 23.7507C19.7692 24.2513 18.4394 24.3822 17.1565 24.127C15.8736 23.8719 14.6952 23.242 13.7702 22.317C12.8453 21.3921 12.2154 20.2137 11.9602 18.9307C11.705 17.6478 11.836 16.318 12.3366 15.1096C12.8371 13.9011 13.6848 12.8682 14.7724 12.1415Z" fill="#8D98AA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M51.4862 19.8472C52.3139 19.8472 52.9849 20.5321 52.9849 21.3771V34.1876C52.9849 40.741 51.7173 45.7264 48.4933 49.0359C45.2673 52.3475 40.4054 53.6502 34.017 53.6502H19.0437C12.6573 53.6502 7.79551 52.348 4.56901 49.0368C1.34449 45.7276 0.0758057 40.7422 0.0758057 34.1876V29.0369C0.0758057 28.1919 0.746809 27.507 1.57453 27.507C2.40226 27.507 3.07326 28.1919 3.07326 29.0369V34.1876C3.07326 40.4435 4.30246 44.4244 6.69417 46.879C9.0839 49.3314 12.9567 50.5904 19.0437 50.5904H34.017C40.106 50.5904 43.9787 49.3309 46.3679 46.8783C48.7592 44.4236 49.9874 40.4427 49.9874 34.1876V21.3771C49.9874 20.5321 50.6584 19.8472 51.4862 19.8472Z" fill="#8D98AA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.63138 5.25898C7.90079 2.0153 12.8273 0.739258 19.3034 0.739258H29.428C30.2627 0.739258 30.9394 1.41063 30.9394 2.2388C30.9394 3.06698 30.2627 3.73835 29.428 3.73835H19.3034C13.1256 3.73835 9.19408 4.97355 6.76888 7.37965C4.34369 9.78576 3.09869 13.6863 3.09869 19.8155C3.09869 20.6436 2.42199 21.315 1.58725 21.315C0.752501 21.315 0.0758057 20.6436 0.0758057 19.8155C0.0758057 13.3904 1.36197 8.50266 4.63138 5.25898Z" fill="#8D98AA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M33.8789 9.55856C33.8789 8.74687 34.5832 8.08887 35.4521 8.08887H49.9421C50.8109 8.08887 51.5153 8.74687 51.5153 9.55856C51.5153 10.3703 50.8109 11.0283 49.9421 11.0283H35.4521C34.5832 11.0283 33.8789 10.3703 33.8789 9.55856Z" fill="#8D98AA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M42.697 0.739258C43.5087 0.739258 44.1667 1.44359 44.1667 2.31243V16.8024C44.1667 17.6713 43.5087 18.3756 42.697 18.3756C41.8853 18.3756 41.2273 17.6713 41.2273 16.8024V2.31243C41.2273 1.44359 41.8853 0.739258 42.697 0.739258Z" fill="#8D98AA"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M41.3002 29.656L30.8987 38.66L30.871 38.6833C29.6065 39.7259 28.0198 40.296 26.3823 40.296C24.7447 40.296 23.1581 39.7259 21.8935 38.6833C21.8799 38.6721 21.8664 38.6606 21.8532 38.6489L21.0503 37.938C20.3779 37.3955 19.552 37.0785 18.6895 37.0324C17.8217 36.986 16.9617 37.2163 16.2326 37.6899L3.89282 46.0419C3.20404 46.5081 2.26855 46.3264 1.80336 45.6362C1.33816 44.9459 1.51942 44.0084 2.2082 43.5422L14.5789 35.1694C15.8448 34.342 17.3406 33.9397 18.8498 34.0204C20.3591 34.101 21.8036 34.6606 22.9745 35.6183C22.9897 35.6307 23.0046 35.6435 23.0194 35.6565L23.8247 36.3695C24.5474 36.9581 25.4505 37.2796 26.3823 37.2796C27.3166 37.2796 28.2221 36.9563 28.9459 36.3646L39.3474 27.3606L39.375 27.3372C40.6396 26.2946 42.2262 25.7246 43.8638 25.7246C45.5013 25.7246 47.088 26.2946 48.3525 27.3372L48.3802 27.3606L52.4637 30.8957C53.0926 31.4403 53.162 32.3926 52.6187 33.0229C52.0753 33.6533 51.125 33.7228 50.496 33.1783L46.4273 29.6559C45.7036 29.0643 44.7981 28.7409 43.8638 28.7409C42.9294 28.7409 42.0239 29.0643 41.3002 29.656Z" fill="#8D98AA"/>
+                  </svg>
+                  <span>
+                    Upload project photo
+                  </span>
+                </label>
+                <label for="image-btn" data-previews-target="showImage">
+                  <%= image_tag "", data: { previews_target: "preview" }, class: "project-modal-image" %>
+                </label>
+                <%= f.file_field :image, class: "form-control", accept: "image/*", direct_upload: true, 
+                    data: { previews_target: "input", action: "change->previews#preview"}, hidden: true, id: "image-btn" %>
+              </div>
+            </div>
+          </div>
+          <%= f.submit("Add", class: "btn btn-primary px-4 rounded-1 fs-6", style: "width: 140px;") %>
+          <button type="button" class="btn bg-white border rounded-1" data-bs-dismiss="modal" style="width: 140px;">Close</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

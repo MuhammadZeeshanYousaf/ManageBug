@@ -12,4 +12,17 @@ two: {}
 user_001:
   id: 1
   email: test@sample.com
+  role: manager
+  encrypted_password: <%= User.new.send(:password_digest, "password") %>
+
+user_002:
+  id: 2
+  email: test2@sample.com
+  role: developer
+  encrypted_password: <%= User.new.send(:password_digest, "password") %>
+
+user_003:
+  id: 3
+  email: test3@sample.com
+  role: QA
   encrypted_password: <%= User.new.send(:password_digest, "password") %>

@@ -1,56 +1,99 @@
 .page-left-image {
-    background-image: linear-gradient(180deg, rgba(49, 49, 49, 0.30) -4.74%, rgba(0, 0, 0, 0.55) 103.32%), asset-url("left-background-image.jpeg");
-    background-size: cover;
-    height: 100vh;
+  background-image: linear-gradient(180deg, rgba(49, 49, 49, 0.30) -4.74%, rgba(0, 0, 0, 0.55) 103.32%), asset-url("left-background-image.jpeg");
+  background-size: cover;
+  height: 100vh;
 }
 
 .custom-card {
-    background-color: white;
-    border: none;
-    box-shadow: 0px 2px 14px 1px rgba(0, 0, 0, 0.06);
+  background-color: white;
+  border: none;
+  box-shadow: 0px 2px 14px 1px rgba(0, 0, 0, 0.06);
 }
 
 .custom-card:hover {
-    border-color: 1px solid #007DFA;
-    background-color: #F5F5F7;
-    border-radius: 6px;
-    box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.04);
+  border-color: 1px solid #007DFA;
+  background-color: #F5F5F7;
+  border-radius: 6px;
+  box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.04);
 }
 
 .arrow-div {
-    display: none;
+  display: none;
 }
 
 .arrow-div:hover {
-    display: block;
+  display: block;
 }
 
 .custom-text-color {
-    color: #8692A6;
+  color: #8692A6;
 }
 
 .rounded-class-filled {
-    height: 52px;
-    width: 52px;
-    border-radius: 50%;
-    background-color: #007DFA;
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  background-color: #007DFA;
 }
 
 .rounded-class {
-    height: 52px;
-    width: 52px;
-    border-radius: 50%;
-    border: 1px solid #007DFA;
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  border: 1px solid #007DFA;
 }
 
 .form-background-custom {
-    background-color: #F5F5F7;
+  background-color: #F5F5F7;
 }
 
 .input-custom-height {
-    height: 64px
+  height: 64px
 }
 
 .dashboard-background {
-    background-color: #F5F6F8;
+  background-color: #F5F6F8;
+}
+
+#img-view {
+  width: 50px;
+  height: 50px;
+  border-radius: 20px;
+  border: 2px dashed #bbb5ff;
+  background: #f7f8ff;
+}
+
+#img-view img {
+  width: 30px;
+  margin-top: 25px;
+}
+
+.image-label {
+  border-radius: 12px;
+  border: 1.47px dashed #4C535F;
+  background: #FAFBFC;
+  width: 191.061px;
+  height: 194px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-label span {
+  color: #4C535F;
+  text-align: center;
+  font-family: Manrope;
+  font-size: 17.636px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 20px;
+}
+
+.project-modal-image {
+  width: 191.061px;
+  height: 194px;
+  border-radius: 12px;
 }

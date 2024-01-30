@@ -14,7 +14,7 @@ class SigninTest < ActionDispatch::IntegrationTest
 
     user = users(:user_001)
     sign_in user
-    get root_path
-    assert_template "home/dashboard"
+    get projects_path
+    assert_template "projects/index"
   end
 end

@@ -11,6 +11,6 @@ class User < ApplicationRecord
   validates :role, presence: true
   validates :name, presence: true, length: { minimum: 3, maximum: 30 }
   validates :phone_number, presence: true
-  has_many :project_users
+  has_many :project_users, dependent: :destroy
   has_many :project, through: :project_users
 end

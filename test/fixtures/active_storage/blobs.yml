@@ -1,0 +1,9 @@
+one:
+  id: 1
+  key: '111'
+  filename: 'broom.png'
+  content_type: 'image/png'
+  metadata: nil
+  byte_size: 1686342
+  checksum: "123456789012345678901234"
+  service_name: "local"

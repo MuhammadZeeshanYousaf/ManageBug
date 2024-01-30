@@ -1,0 +1,5 @@
+one:
+  name: 'overview'
+  record_type: 'PointOfWorkRiskAssessment'
+  record_id: <%= ActiveRecord::FixtureSet.identify(:point_of_work_risk_assessment_one) %>
+  blob_id: 1

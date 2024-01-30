@@ -17,8 +17,9 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post user_registration_path, params: { user: { name: "Touseef Ali", email: "touseef@visnext.com", phone_number: "090078601", role: "manager", password: "password", password_confirmation: "password" }}
     end
-    follow_redirect!
-    assert_template "home/dashboard"
+    get projects_path
+    assert_response :success
+    assert_match projects_path, response.body
   end
 
   test "False user shoudld not get created" do
