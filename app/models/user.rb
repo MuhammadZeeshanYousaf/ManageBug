@@ -6,11 +6,12 @@ class User < ApplicationRecord
   enum role: {
     manager: 0,
     developer: 1,
-    QA: 2
+    QA: 2,
   }
   validates :role, presence: true
   validates :name, presence: true, length: { minimum: 3, maximum: 30 }
   validates :phone_number, presence: true
   has_many :project_users, dependent: :destroy
   has_many :project, through: :project_users
+  has_many :bugs
 end

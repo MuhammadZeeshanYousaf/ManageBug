@@ -5,4 +5,5 @@ class Project < ApplicationRecord
   has_one_attached :image
   validates :image, presence: true
   validates :creator_id, presence: true
+  has_many :bugs
 end

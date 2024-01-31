@@ -97,3 +97,45 @@
   height: 194px;
   border-radius: 12px;
 }
+
+.custom-bg-danger {
+  background-color: #FDF2F2;
+  color: #EC5962;
+}
+
+.custom-bg-success {
+  background-color: rgba(0, 184, 148, 0.08);
+  color: #00B894;
+}
+
+.custom-bg-info {
+  background-color: #EEF3FF;
+  color: #3069FE;
+}
+
+.empty-circle-danger {
+  background-color: #EC5962;
+}
+
+.empty-circle-info {
+  background-color: #3069FE;
+}
+
+.empty-circle-success {
+  background-color: #00B894;
+}
+
+.th-bugs {
+  color: rgba(58, 53, 65, 0.87);
+  font-feature-settings: 'clig' off, 'liga' off;
+  // font-family: Poppins;
+  font-size: 12.362px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24.725px;
+  /* 200% */
+  letter-spacing: 0.175px;
+  text-transform: uppercase;
+  // border-right: 2px solid rgba(58, 53, 65, 0.12);
+  // padding: 5px 0px 5px 5px;
+}
