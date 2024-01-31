@@ -20,7 +20,7 @@ class CreateProjectTest < ActionDispatch::IntegrationTest
   test "should create project with manager user" do
     sign_in @user
     get projects_path
-    my_project = {name: "Test project", details: "Test project details", image: @file, creator_id: @user.id}
+    my_project = { name: "Test project", details: "Test project details", image: @file, creator_id: @user.id, users: [@user2.id, @user3.id] }
     assert_difference "Project.count", 1 do
       post projects_path, params: { project: my_project }
     end
@@ -32,7 +32,7 @@ class CreateProjectTest < ActionDispatch::IntegrationTest
   test "should not be created except manager user" do
     sign_in @user2
     get projects_path
-    my_project = {name: "Test project", details: "Test project details", image: @file, creator_id: @user.id}
+    my_project = { name: "Test project", details: "Test project details", image: @file, creator_id: @user.id }
     assert_no_difference "Project.count" do
       post projects_path, params: { project: my_project }
     end

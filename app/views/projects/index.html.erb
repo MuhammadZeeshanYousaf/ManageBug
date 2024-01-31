@@ -125,6 +125,10 @@
                 <%= f.label :details, "Short Details", class: "fw-bold" %>
                 <%= f.text_field :details, class: "form-control", placeholder: "Enter details here" %>
               </div>
+              <div class="form-control border-0 mt-2">
+                <label>Select users</label>
+                <%= f.select :user_ids, User.where(role: [:QA, :developer]).pluck(:name, :id), {}, {multiple: true, data: {controller: "slim-select"}} %>
+              </div>
             </div>
             <div class="col-md-4">
               <div class="form-control border-0" data-controller="previews">

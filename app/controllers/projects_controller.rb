@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @projects = Project.paginate(page: params[:page], per_page: 10)
+    @projects = Project.paginate(page: params[:page], per_page: 6)
     @project = Project.new
   end
 
@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
-    @projects = Project.paginate(page: params[:page], per_page: 10)
+    @projects = Project.paginate(page: params[:page], per_page: 6)
     user = User.find_by(id: @project.creator_id)
     if user.role == "manager"
       # debugger
@@ -32,6 +32,6 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :image, :details)
+    params.require(:project).permit(:name, :image, :details, user_ids: [])
   end
 end
