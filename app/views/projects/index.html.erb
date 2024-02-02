@@ -1,8 +1,6 @@
 <div class="dashboard-background" style="min-height: 94vh;">
   <div class='container'>
-    <%= render "layouts/messages" %>
     <%= render "shared/navigation_bar" %>
-    <%# <%= render "shared/errors", obj: @project %>
     <div class="d-flex align-items-center justify-content-between" style="height: 72px;">
       <div class="d-flex align-items-center h-75">
         <div class="h-100 bg-success" style="width: 4px;"></div>
@@ -112,7 +110,6 @@
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add new Project</h1>
-        <%# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> %>
       </div>
       <div class="modal-body">
         <%= form_for(@project, :html => { class: "form-horizontal", role: "form" }) do |f| %>

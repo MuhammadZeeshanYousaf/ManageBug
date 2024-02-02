@@ -14,4 +14,17 @@ class User < ApplicationRecord
   has_many :project_users, dependent: :destroy
   has_many :project, through: :project_users
   has_many :bugs
+
+  def get_user_project
+    case role
+    when "manager"
+      Project.where(creator_id: id)
+    when "developer"
+      project
+    when "QA"
+      project
+    else
+      []
+    end
+  end
 end

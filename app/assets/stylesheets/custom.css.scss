@@ -139,3 +139,23 @@
   // border-right: 2px solid rgba(58, 53, 65, 0.12);
   // padding: 5px 0px 5px 5px;
 }
+
+/* Change color of calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+/* Change shape of icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-image: asset-url('calendar-icon.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  margin-right: 10px;
+  border: none;
+}
+
+#title-input::placeholder {
+  color: #8D98AA;
+  opacity: 0.5;
+}

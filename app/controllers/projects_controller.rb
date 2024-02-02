@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @projects = Project.paginate(page: params[:page], per_page: 6)
+    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
     @project = Project.new
   end
 
@@ -12,10 +12,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
-    @projects = Project.paginate(page: params[:page], per_page: 6)
+    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
     user = User.find_by(id: @project.creator_id)
     if user.role == "manager"
-      # debugger
       if @project.save
         flash[:success] = "New project created"
         redirect_to projects_path
@@ -31,6 +30,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @bug = Bug.new
   end
 
   private

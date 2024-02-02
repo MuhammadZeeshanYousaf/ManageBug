@@ -10,13 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <% if notice %>
-      <div class="alert alert-primary m-0" role="alert"><%= notice %></div>
-    <% end %>
-    <% if alert %>
-      <div class="alert alert-danger m-0" role="alert"><%= alert %></div>
-    <% end %>
-    <%# <%= render "layouts/messages" %>
+    <%= render "layouts/messages" %>
     <%= yield %>
   </body>
 </html>
