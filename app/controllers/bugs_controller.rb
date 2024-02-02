@@ -30,6 +30,16 @@ class BugsController < ApplicationController
   end
 
   def update
+    # debugger
+    project = Project.find(params[:project_id])
+    bug = Bug.find(params[:id])
+    if bug.update(status: params[:status])
+      flash[:success] = "Bug status updated"
+      redirect_to project
+    else
+      flash[:danger] = "There's some error while updating status"
+      render "projects/show", status: :unprocessable_entity
+    end
   end
 
   def show

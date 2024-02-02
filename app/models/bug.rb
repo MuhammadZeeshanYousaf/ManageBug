@@ -16,6 +16,7 @@ class Bug < ApplicationRecord
   validates_uniqueness_of :title, scope: :project_id
   validates :project_id, presence: true
   validate :deadline_cannot_be_in_the_past
+  default_scope -> { order(created_at: :asc) }
 
   def deadline_cannot_be_in_the_past
     if deadline.present? && deadline < Date.today
