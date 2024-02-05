@@ -170,7 +170,7 @@
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li class="mt-2">
-                <%= link_to bug_path(bug), class: "dropdown-item", data: { turbo_method: :delete } do %>
+                <%= link_to bug_path(bug, project_id: @project.id), class: "dropdown-item", data: { turbo_method: :delete } do %>
                   <div class="text-danger d-flex align-items-center justify-content-between">
                     Delete
                     <img src="/images/delete-icon.png" alt="Delete icon" style="height: 15px; width: 15px;" />
@@ -238,5 +238,4 @@
       </main>
     </div>
   </div>
-</div>
 </div>

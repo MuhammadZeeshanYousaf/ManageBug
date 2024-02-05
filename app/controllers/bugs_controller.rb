@@ -46,6 +46,12 @@ class BugsController < ApplicationController
   end
 
   def destroy
+    puts "Coming in delete section"
+    @project = Project.find(params[:project_id])
+    @bug = Bug.find(params[:id])
+    @bug.destroy
+    flash[:success] = "Bug deleted successfully"
+    redirect_to project_path(@project), status: :see_other
   end
 
   private
