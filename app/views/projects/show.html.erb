@@ -118,7 +118,9 @@
             </div>
           </td>
           <td class="text-center">
-            <%= link_to bug.status, "#", class: "text-decoration-none my-2 p-2 rounded #{bug.status == "pending" ? "custom-bg-danger" : bug.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}" %>
+            <%= link_to bug.status == "in_progress" ? "In progress" : bug.status.capitalize, "#", 
+              class: "text-decoration-none my-2 p-2 rounded #{bug.status == "pending" ? "custom-bg-danger" : bug.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}" 
+            %>
           </td>
           <td data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="Tooltip" class="text-center">
             <%# <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
@@ -163,11 +165,19 @@
                   <span class="custom-bg-info p-2">In progress</span>
                 <% end %>
               </li>
-              <li class="mt-2">
-                <%= link_to bug_path(bug, status: "closed", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
-                  <span class="custom-bg-success p-2">Close</span>
-                <% end %>
-              </li>
+              <% if bug.bug_type == "bug" %>
+                <li class="mt-2">
+                  <%= link_to bug_path(bug, status: "resolved", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <span class="custom-bg-success p-2">Resolved</span>
+                  <% end %>
+                </li>
+              <% else %>
+                <li class="mt-2">
+                  <%= link_to bug_path(bug, status: "closed", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <span class="custom-bg-success p-2">Close</span>
+                  <% end %>
+                </li>
+              <% end %>
               <li><hr class="dropdown-divider" /></li>
               <li class="mt-2">
                 <%= link_to bug_path(bug, project_id: @project.id), class: "dropdown-item", data: { turbo_method: :delete } do %>

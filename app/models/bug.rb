@@ -5,10 +5,11 @@ class Bug < ApplicationRecord
     pending: 0,
     in_progress: 1,
     closed: 2,
+    resolved: 3,
   }
-  enum type: {
+  enum bug_type: {
     bug: 0,
-    feature: 1,
+    task: 1,
   }
   # has_one_attached :image
   # validates :image, presence: true
