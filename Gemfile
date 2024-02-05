@@ -68,14 +68,14 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
 end
 
 gem "devise", "~> 4.9"
-gem 'bootstrap', '~> 5.3.2'
-gem 'dartsass-sprockets'
-gem 'jquery-rails'
-gem 'fontawesome-rails'
-gem 'rails-controller-testing'
-gem 'will_paginate', '~> 4.0'
-gem 'cancancan'
+gem "bootstrap", "~> 5.3.2"
+gem "dartsass-sprockets"
+gem "jquery-rails"
+gem "fontawesome-rails"
+gem "rails-controller-testing"
+gem "will_paginate", "~> 4.0"
+gem "cancancan"
+gem "carrierwave", "~> 3.0"

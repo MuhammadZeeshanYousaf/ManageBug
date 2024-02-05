@@ -227,7 +227,7 @@
             <label for="image-btn" data-previews-target="showImage" style="cursor: pointer;">
               <%= image_tag "", data: { previews_target: "preview" }, class: "project-modal-image text-center" %>
             </label>
-            <%= f.file_field :image, class: "form-control", accept: "image/*", direct_upload: true, 
+            <%= f.file_field :screenshot, class: "form-control", accept: "image/*", direct_upload: true, 
                     data: { previews_target: "input", action: "change->previews#preview"}, hidden: true, id: "image-btn" %>
           </div>
           <%= f.hidden_field :project_id, value: params[:id] %>

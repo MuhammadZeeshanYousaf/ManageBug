@@ -24,7 +24,7 @@ class CreateBugTest < ActionDispatch::IntegrationTest
     get project_path(@project)
     assert_response :success
     new_bug = { title: "Test bug 1", description: "Test description of bug", deadline: 10.days.from_now,
-                bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, image: @file }
+                bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, screenshot: @file }
     assert_difference "Bug.count", 1 do
       post bugs_path, params: { bug: new_bug }
     end
@@ -38,7 +38,7 @@ class CreateBugTest < ActionDispatch::IntegrationTest
     get project_path(@project)
     assert_response :success
     new_bug = { title: "Test bug", description: "Test description of bug", deadline: 10.days.from_now,
-                bug_type: 0, status: 0, creator_id: @user2.id, project_id: @project.id, user_id: @user2.id, image: @file }
+                bug_type: 0, status: 0, creator_id: @user2.id, project_id: @project.id, user_id: @user2.id, screenshot: @file }
     assert_no_difference "Bug.count" do
       post bugs_path, params: { bug: new_bug }
     end

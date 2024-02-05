@@ -10,7 +10,7 @@ class BugTest < ActiveSupport::TestCase
     @project = Project.new(name: "New Project", details: "These are short details of project", image: @file, creator_id: @user.id)
     @project.save
     @bug = Bug.new(title: "Bug 1", description: "Test description", deadline: 10.days.from_now,
-                   bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, image: @file)
+                   bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, screenshot: @file)
   end
 
   test "should be valid" do
@@ -39,7 +39,7 @@ class BugTest < ActiveSupport::TestCase
   test "Bug title should be unique with in the scope of project" do
     assert @bug.save
     @bug_same = Bug.new(title: "Bug 1", description: "Test description", deadline: 10.days.from_now,
-                        bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, image: @file)
+                        bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, screenshot: @file)
     assert_not @bug_same.save
   end
 
@@ -48,7 +48,7 @@ class BugTest < ActiveSupport::TestCase
     @project2 = Project.new(name: "New Project 2", details: "These are short details of project 2", image: @file, creator_id: @user.id)
     assert @project2.save
     @bug2 = Bug.new(title: "Bug 1", description: "Test description", deadline: 10.days.from_now,
-                    bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project2.id, user_id: @user2.id, image: @file)
+                    bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project2.id, user_id: @user2.id, screenshot: @file)
     assert @bug2.save
   end
 end

@@ -12,7 +12,7 @@ class UpdateBugStatusTest < ActionDispatch::IntegrationTest
     @project = Project.new(name: "New Project", details: "These are short details of project", image: @file, creator_id: @user.id)
     @project.save
     @bug = Bug.create!(title: "Bug 1", description: "Test description", deadline: 10.days.from_now,
-                       bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, image: @file)
+                       bug_type: 0, status: 0, creator_id: @user3.id, project_id: @project.id, user_id: @user2.id, screenshot: @file)
   end
 
   test "should update bug status" do

@@ -10,13 +10,16 @@ class Bug < ApplicationRecord
     bug: 0,
     feature: 1,
   }
-  has_one_attached :image
-  validates :image, presence: true
+  # has_one_attached :image
+  # validates :image, presence: true
   validates :title, presence: :true
   validates_uniqueness_of :title, scope: :project_id
   validates :project_id, presence: true
   validate :deadline_cannot_be_in_the_past
   default_scope -> { order(created_at: :asc) }
+  validates :screenshot, presence: :true
+
+  mount_uploader :screenshot, ImageUploader
 
   def deadline_cannot_be_in_the_past
     if deadline.present? && deadline < Date.today
