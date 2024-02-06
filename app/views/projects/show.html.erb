@@ -111,7 +111,7 @@
               <input class="form-check-input rounded-0 border border-2 border-dark" type="checkbox" value="" id="flexCheckChecked" style="border-color: #3A3541AD;">
             </form>
           </td>
-          <td>
+          <td data-bs-toggle="modal" data-bs-target="#bug_detail_modal_<%= bug.id %>" style="cursor: pointer;">
             <div class="d-flex align-items-center">
               <%= content_tag(:div, "", class: "rounded-circle d-block me-2 #{bug.status == "pending" ? "empty-circle-danger" : bug.status == "in_progress" ? "empty-circle-info" : "empty-circle-success"}", style: "height: 10px; width: 10px;")%>
               <%= bug.description %>
@@ -190,6 +190,7 @@
             </ul>
           </td>
         </tr>
+        <%= render "bug_details_modal", obj: bug %>
       <% end %>
     </table>
   </main>

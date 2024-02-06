@@ -1,0 +1,115 @@
+<div class="modal fade" id="bug_detail_modal_<%= obj.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-end justify-content-end" style="background: #F5F6F8;">
+        <div class="bg-dark rounded d-flex align-items-center justify-content-center float-right" style="height: 32px; width: 32px">
+          <button type="button" class="btn-close btn-close-white p-0 m-0" data-bs-dismiss="modal" aria-label="Close" style="opacity: 1;"></button>
+        </div>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          <div class="col-6">
+            <div class="d-flex align-items-center p-3">
+              <%= button_tag(class: "btn px-4 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}", style: "border-radius: 4px;") do%>
+                <%# <button class="btn btn-sm custom-bg-danger"> %>
+                <%= obj.status.capitalize %>
+                <%# </button> %>
+              <% end %>
+              <%= button_tag(class: "btn dropdown-toggle dropdown-toggle-split ms-1 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}", "data-bs-toggle": "dropdown", "aria-expand": "false", style: "border-radius: 4px;") do%>
+                <%# <button class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"> %>
+                <span class="visually-hidden">Toggle Dropdown</span>
+                <%# </button> %>
+              <% end %>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to bug_path(obj, status: "pending"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <span class="custom-bg-danger p-2">Pending</span>
+                  <% end %>
+                </li>
+                <li class="mt-2">
+                  <%= link_to bug_path(obj, status: "in_progress"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <span class="custom-bg-info p-2">In progress</span>
+                  <% end %>
+                </li>
+                <% if obj.bug_type == "bug" %>
+                  <li class="mt-2">
+                    <%= link_to bug_path(obj, status: "resolved"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                      <span class="custom-bg-success p-2">Resolved</span>
+                    <% end %>
+                  </li>
+                <% else %>
+                  <li class="mt-2">
+                    <%= link_to bug_path(obj, status: "closed"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                      <span class="custom-bg-success p-2">Close</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+              <div class="ms-5 w-100">
+                <span class="text-white rounded-circle p-2" style="background-color: #F09785;">
+                  <%= obj.user.name[0].capitalize %>
+                </span>
+              </div>
+              <div class="flex-shrink-1">
+                <img src="/images/three-dot.svg" style="height: 20px; width: 15px;" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="border-left: 1px solid #D9D9D9;">
+            <div class="d-flex align-items-center p-3">
+              <div class="border-end pe-4">
+                <div style="color: #9592984D;">
+                  Created 
+                </div>
+                <div style="color: #8D98AA;"><%= obj.created_at.getlocal().to_fs(:short) %></div>
+              </div>
+              <div class="ps-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                  <g clip-path="url(#clip0_955_936)">
+                    <path d="M13.947 0.80835C13.947 0.362305 14.3879 0 14.9331 0C15.4783 0 15.9192 0.362305 15.9192 0.80835V4.34937C15.9192 4.79541 15.4783 5.15771 14.9331 5.15771C14.3879 5.15771 13.947 4.79541 13.947 4.34937V0.80835ZM5.0603 0.80835C5.0603 0.362305 5.50122 0 6.04639 0C6.59155 0 7.03247 0.362305 7.03247 0.80835V4.34937C7.03247 4.79541 6.59155 5.15771 6.04639 5.15771C5.50122 5.15771 5.0603 4.79541 5.0603 4.34937V0.80835ZM7.00513 14.4512C6.78809 14.2427 6.78125 13.8975 6.98975 13.6804C7.19824 13.4634 7.54346 13.4565 7.7605 13.665L9.45239 15.3005L13.2156 11.2708C13.4207 11.0503 13.7659 11.0383 13.9863 11.2434C14.2068 11.4485 14.2188 11.7937 14.0137 12.0142L9.8728 16.4507L9.86597 16.4575C9.65747 16.6746 9.31226 16.6814 9.09521 16.4729L7.00513 14.4512ZM1.09375 7.74512H19.9062V3.66919C19.9062 3.53247 19.8499 3.40771 19.7593 3.31543C19.6687 3.22485 19.5439 3.16846 19.4055 3.16846H17.6025C17.3 3.16846 17.0557 2.92407 17.0557 2.62158C17.0557 2.31909 17.3 2.07471 17.6025 2.07471H19.4055C19.8447 2.07471 20.2429 2.25415 20.5317 2.54297C20.8206 2.83179 21 3.22998 21 3.66919V8.2937V19.4072C21 19.8464 20.8206 20.2446 20.5317 20.5334C20.2429 20.8223 19.8447 21.0017 19.4055 21.0017H1.59448C1.15527 21.0017 0.75708 20.8223 0.468262 20.5334C0.179443 20.2429 0 19.8447 0 19.4055V8.2937V3.66919C0 3.22998 0.179443 2.83179 0.468262 2.54297C0.75708 2.25415 1.15527 2.07471 1.59448 2.07471H3.52051C3.823 2.07471 4.06738 2.31909 4.06738 2.62158C4.06738 2.92407 3.823 3.16846 3.52051 3.16846H1.59448C1.45776 3.16846 1.33301 3.22485 1.24072 3.31543C1.15015 3.40601 1.09375 3.53076 1.09375 3.66919V7.74512ZM19.9062 8.84058H1.09375V19.4055C1.09375 19.5422 1.15015 19.667 1.24072 19.7593C1.3313 19.8499 1.45605 19.9062 1.59448 19.9062H19.4055C19.5422 19.9062 19.667 19.8499 19.7593 19.7593C19.8499 19.6687 19.9062 19.5439 19.9062 19.4055V8.84058ZM8.61841 3.16846C8.31592 3.16846 8.07153 2.92407 8.07153 2.62158C8.07153 2.31909 8.31592 2.07471 8.61841 2.07471H12.291C12.5935 2.07471 12.8379 2.31909 12.8379 2.62158C12.8379 2.92407 12.5935 3.16846 12.291 3.16846H8.61841Z" fill="#D0D5DD"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_955_936">
+                      <rect width="21" height="21" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-0">
+          <div class="col-6 pb-5">
+            <div class="border-top pt-4 px-3">
+              <h3><%= obj.title %></h3>
+              <div class="mt-4">
+                <img src=<%= obj.screenshot %> style="height: 140px; width: 100%;" />
+              </div>
+              <div class="mt-5">
+                <p>Bug details</p>
+                <input placeholder="Add here" class="w-100 border border-opacity-10 p-3" />
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="border-top px-3 pt-4 h-100" style="background-color: #F5F6F8; color: #A1A1AA;">
+              This task was created by <%= User.find(obj.creator_id).name %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <div class="row g-0 w-100">
+          <div class="col-6 border-end p-3">
+            <div class="d-flex align-items-center justify-content-center" style="color: #4C535F66;">
+              Drop any file here or <span style="color: #007DFA;">&nbsp;browse</span>
+            </div>
+          </div>
+          <div class="col-6 d-flex align-items-center ps-4" style="color: #4C535F66;">
+            Comment or type here
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

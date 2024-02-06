@@ -113,6 +113,21 @@
   color: #3069FE;
 }
 
+.custom-bg-danger:hover {
+  background-color: #FDF2F2;
+  color: #EC5962;
+}
+
+.custom-bg-success:hover {
+  background-color: rgba(0, 184, 148, 0.08);
+  color: #00B894;
+}
+
+.custom-bg-info:hover {
+  background-color: #EEF3FF;
+  color: #3069FE;
+}
+
 .empty-circle-danger {
   background-color: #EC5962;
 }
