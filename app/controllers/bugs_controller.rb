@@ -46,7 +46,6 @@ class BugsController < ApplicationController
   end
 
   def destroy
-    puts "Coming in delete section"
     @project = Project.find(params[:project_id])
     @bug = Bug.find(params[:id])
     @bug.destroy
