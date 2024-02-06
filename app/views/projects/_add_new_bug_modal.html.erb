@@ -17,7 +17,7 @@
             <div class="d-flex align-items-center">
               <div class="form-control border-0 mt-2 d-flex w-50">
                 <%= f.label :user_id, "Assign to", class: "text-nowrap" %>
-                <%= f.select :user_id, User.where(role: :developer).pluck(:name, :id), {include_blank: true}, data: {controller: "slim-select"}, class: "ms-3" %>
+                <%= f.select :user_id, project.users.where(role: :developer).pluck(:name, :id), {include_blank: true}, data: {controller: "slim-select"}, class: "ms-3" %>
               </div>
               <div class="form-control border-0 mt-2">
                 <%= f.label :deadline, "Add due date" %>
