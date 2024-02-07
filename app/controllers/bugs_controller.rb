@@ -14,6 +14,7 @@ class BugsController < ApplicationController
     @bug.bug_type = "bug"
     if current_user.role == "QA"
       if @bug.save
+        HardJob.perform_async([@bug.user.email])
         flash[:success] = "New Bug Added"
         redirect_to @project
       else

@@ -15,7 +15,9 @@ class ProjectsController < ApplicationController
     @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
     user = User.find_by(id: @project.creator_id)
     if user.role == "manager"
-      if @project.save
+      if @project.save!
+        # binding.pry
+        HardJob.perform_async(@project.users.pluck(:email))
         flash[:success] = "New project created"
         redirect_to projects_path
       else
