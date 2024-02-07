@@ -70,6 +70,8 @@ group :test do
   gem 'rspec-rails', '~> 6.1', '>= 6.1.1'
   gem 'capybara', '~> 3.40'
   gem 'selenium-webdriver', '~> 4.17'
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
 end
 
 gem "devise", "~> 4.9"
