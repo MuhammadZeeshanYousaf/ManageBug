@@ -20,20 +20,6 @@ RSpec.describe 'User Sign up' do
     fill_in 'Password confirmation', with: user.password, exact: true
   end
 
-  def expect_success(role)
-    role = role.to_s
-    raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
-    click_on 'Sign Up'
-    expect(page).to have_http_status(:success)
-    expect(current_path).to have_content('/projects')
-    if role.downcase.eql?'manager'
-      expect(page).to have_selector(:link_or_button, 'Add New Project')
-    else
-      expect(page).not_to have_selector(:link_or_button, 'Add New Project')
-    end
-    expect(page).to have_content('Projects')
-  end
-
 
   context 'for manager' do
     it 'successfully creates account for manager' do
@@ -41,7 +27,7 @@ RSpec.describe 'User Sign up' do
       manager_user = build(:user, role: :manager)
       expect(manager_user.role).to eq('manager')
       fill_in_details manager_user
-      expect_success :manager
+      expect_success :manager, button_text: 'Sign Up'
     end
   end
 
@@ -51,7 +37,7 @@ RSpec.describe 'User Sign up' do
       developer_user = build(:user, role: :developer)
       expect(developer_user.role).to eq('developer')
       fill_in_details developer_user
-      expect_success :developer
+      expect_success :developer, button_text: 'Sign Up'
     end
   end
 
@@ -61,7 +47,7 @@ RSpec.describe 'User Sign up' do
       qa_user = build(:user, role: :QA)
       expect(qa_user.role).to eq('QA')
       fill_in_details qa_user
-      expect_success :QA
+      expect_success :QA, button_text: 'Sign Up'
     end
   end
 
