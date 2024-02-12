@@ -2,7 +2,7 @@ module AuthenticationHelper
   def expect_success(role, button_text: 'Login')
     role = role.to_s
     raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
-    click_on button_text
+    click_link_or_button button_text
     expect(page).to have_http_status(:success)
     expect(page).to have_current_path(projects_path)
     expect(page).to have_content('Projects')
