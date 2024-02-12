@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'support/authentication_helpers'
 
 RSpec.feature 'User Login' do
 
