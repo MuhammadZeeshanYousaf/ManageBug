@@ -71,7 +71,9 @@ group :test do
   gem 'capybara', '~> 3.40'
   gem 'selenium-webdriver', '~> 4.17'
   gem 'factory_bot_rails'
+  gem 'faker', '~> 3.2', '>= 3.2.3'
   gem 'shoulda-matchers'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 gem "devise", "~> 4.9"
@@ -79,7 +81,6 @@ gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets"
 gem "jquery-rails"
 gem "fontawesome-rails"
-gem "rails-controller-testing"
 gem "will_paginate", "~> 4.0"
 gem "cancancan"
 gem "carrierwave", "~> 3.0"
