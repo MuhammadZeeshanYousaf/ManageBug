@@ -92,7 +92,6 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  config.include FactoryBot::Syntax::Methods
 
   config.before(:each, type: :system) do
     driven_by :rack_test

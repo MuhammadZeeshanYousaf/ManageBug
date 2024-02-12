@@ -51,7 +51,14 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.1'
+  gem 'capybara', '~> 3.40'
+  gem 'selenium-webdriver', '~> 4.17'
+  gem 'factory_bot_rails'
+  gem 'faker', '~> 3.2', '>= 3.2.3'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 group :development do
@@ -63,17 +70,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
-
-group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'rspec-rails', '~> 6.1', '>= 6.1.1'
-  gem 'capybara', '~> 3.40'
-  gem 'selenium-webdriver', '~> 4.17'
-  gem 'factory_bot_rails'
-  gem 'faker', '~> 3.2', '>= 3.2.3'
-  gem 'shoulda-matchers'
-  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
 end
 
 gem "devise", "~> 4.9"
