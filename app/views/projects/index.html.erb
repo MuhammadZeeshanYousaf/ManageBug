@@ -1,4 +1,4 @@
-<div class="dashboard-background" style="min-height: 94vh;">
+<div class="dashboard-background pb-4" style="min-height: 94vh;">
   <div class='container'>
     <%= render "shared/navigation_bar" %>
     <div class="d-flex align-items-center justify-content-between" style="height: 72px;">
@@ -92,11 +92,10 @@
         Display
       </span>
       <div>
-        <select class="form-select">
-          <option>5</option>
-          <option selected>10</option>
-          <option>25</option>
-        </select>
+        <%= form_tag projects_path, method: :get do %>
+          <%= select_tag :per_page, options_for_select([5, 10, 15, 20], :selected => params[:per_page] || 10 ), 
+                include_blank: false, onchange: "this.form.submit()", class: "form-select"  %>
+        <% end %>
       </div>
     </div>
     <div class="digg_pagination">

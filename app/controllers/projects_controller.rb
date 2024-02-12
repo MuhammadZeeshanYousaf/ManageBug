@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
+    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: params[:per_page] || 10)
     @project = Project.new
   end
 
@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
-    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
+    @projects = current_user.get_user_project.paginate(page: params[:page], per_page: params[:per_page] || 10)
     user = User.find_by(id: @project.creator_id)
     if user.role == "manager"
       if @project.save!
