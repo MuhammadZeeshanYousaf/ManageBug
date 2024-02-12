@@ -4,7 +4,7 @@ module AuthenticationHelper
     raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
     click_on button_text
     expect(page).to have_http_status(:success)
-    expect(page).to have_current_path('/projects')
+    expect(page).to have_current_path(projects_path)
     expect(page).to have_content('Projects')
     if role.downcase.eql?'manager'
       expect(page).to have_selector(:link_or_button, 'Add New Project')

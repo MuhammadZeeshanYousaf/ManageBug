@@ -5,9 +5,9 @@ RSpec.describe 'User Sign up' do
   def visit_signup(role)
     role = role.to_s
     raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
-    visit '/'
-    find("a[href='/users/sign_up?role=#{role}']", text: role.camelize).click
-    expect(current_url).to include("/users/sign_up?role=#{role}")
+    visit root_path
+    find("a[href='#{new_user_registration_path(role: role)}']", text: role.camelize).click
+    expect(current_url).to include(new_user_registration_path(role: role))
     expect(page).to have_content('Sign Up')
   end
 
