@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
     @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)

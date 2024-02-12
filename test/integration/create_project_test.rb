@@ -44,7 +44,9 @@ class CreateProjectTest < ActionDispatch::IntegrationTest
     assert_no_difference "Project.count" do
       post projects_path, params: { project: my_project }
     end
-    assert_template "projects/index"
+    assert_response :redirect
+    follow_redirect!
+    # assert_template "projects/index"
     assert_not flash.empty?
   end
 end

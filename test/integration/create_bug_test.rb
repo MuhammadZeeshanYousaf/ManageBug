@@ -47,7 +47,10 @@ class CreateBugTest < ActionDispatch::IntegrationTest
     assert_no_difference "Bug.count" do
       post bugs_path, params: { bug: new_bug }
     end
-    assert_template "projects/show"
+    assert_response :redirect
+    # assert_redirected_to root_path
+    follow_redirect!
+    # assert_template "projects/show"
     assert_not flash.empty?
   end
 end

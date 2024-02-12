@@ -11,10 +11,10 @@
         <form class="d-flex h-100" role='search'>
           <input class="form-control me-2 ms-2 rounded-2 border-0 h-100" type="search" placeholder="Search for projects here" style="background-color: #F1F1F1;"  />
         </form>
-        <% if current_user.role == "manager" %>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#new_project_modal" class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Project</button>
-        <% elsif current_user.role == "QA" %>
-          <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Bug</button>
+        <% if can? :create, @project %>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#new_project_modal" class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">
+            + Add New Project
+          </button>
         <% end %>
         <div class="dropdown h-75 py-2 px-2 ms-2">
           <div role="button" data-bs-toggle="dropdown">
