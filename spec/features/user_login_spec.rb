@@ -18,7 +18,7 @@ RSpec.feature 'User Login' do
     visit_login
 
     # Fill in the login form with invalid credentials
-    user = create :user
+    user = create :user, :manager
     user.password = 'wrong_password'
     fill_in_credentials user
     click_on 'Login'
