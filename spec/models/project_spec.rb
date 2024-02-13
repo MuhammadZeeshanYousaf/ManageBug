@@ -49,6 +49,15 @@ RSpec.describe Project, type: :model do
         expect(project.errors.full_messages).to include('Creator cannot be QA')
       end
     end
+
+    context 'developer' do
+      it 'cannot create project' do
+        developer = create :user, :developer
+        project = build :project, creator: developer
+        expect(project).to_not be_valid
+        expect(project.errors.full_messages).to include('Creator cannot be developer')
+      end
+    end
   end
 
   describe 'associations' do
