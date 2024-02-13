@@ -22,46 +22,54 @@ RSpec.feature 'User Logout', type: :feature do
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 
-  context 'Manger' do
+  def login_user(role)
+    role = role.to_s
+    raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
+
+    user = create :user, role
+    sign_in user
+    visit projects_path
+    user
+  end
+
+  context 'Manager' do
+    let!(:logged_in_manager) { login_user :manager }
+
     scenario 'logs out successfully' do
-      # Verify that the user is logged in
-      manager_user = expect_successful_login :manager
       # Perform logout
-      expect_successful_logout manager_user
+      expect_successful_logout logged_in_manager
     end
 
     scenario 'attempts to access restricted page after logout' do
-      manager_user = expect_successful_login :manager
-
       # Perform logout
-      expect_successful_logout manager_user
+      sign_out logged_in_manager
 
       expect_no_projects_access
     end
   end
 
   context 'Developer' do
+    let!(:logged_in_developer) { login_user :developer }
+
     scenario 'logs out successfully' do
-      # Perform Login and then logout
-      expect_successful_logout expect_successful_login :developer
+      expect_successful_logout logged_in_developer
     end
 
     scenario 'attempts to access restricted page after logout' do
-      # Perform Login and then logout
-      expect_successful_logout expect_successful_login :developer
+      sign_out logged_in_developer
       expect_no_projects_access
     end
   end
 
   context 'QA' do
+    let!(:logged_in_qa) { login_user :QA }
+
     scenario 'logs out successfully' do
-      # Perform Login and then logout
-      expect_successful_logout expect_successful_login :QA
+      expect_successful_logout logged_in_qa
     end
 
     scenario 'attempts to access restricted page after logout' do
-      # Perform Login and then logout
-      expect_successful_logout expect_successful_login :QA
+      sign_out logged_in_qa
       expect_no_projects_access
     end
   end
