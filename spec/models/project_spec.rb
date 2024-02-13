@@ -7,18 +7,16 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
 
   describe 'project bugs' do
-    let(:manager) { create :user, :manager}
+    let(:manager) { create :user, :manager }
     let(:project) { create :project, creator: manager }
     let(:creator) { create :user, :QA }
     let(:developer) { create :user, :developer }
-    # Create multiple bugs associated with the project
-    let(:bug1) { create(:bug, project:, creator:, developer:) }
-    let(:bug2) { create(:bug, project:, creator:, developer:) }
-    let(:bug3) { create(:bug, project:, creator:, developer:) }
 
     context 'project' do
+      let!(:bugs) { create_list(:bug, 3, project: project, creator:, developer:) }
+
       it 'can have multiple bugs' do
-        expect(project.bugs).to include(bug1, bug2, bug3)
+        expect(project.bugs).to include(*bugs)
       end
     end
 
@@ -29,11 +27,11 @@ RSpec.describe Project, type: :model do
     end
 
     context 'QA' do
+      let!(:bugs) { create_list(:bug, 3, project: project, creator:, developer:) }
+
       it 'can create multiple bugs' do
         expect(creator).to be_QA
-        expect(bug1.creator).to eq(creator)
-        expect(bug2.creator).to eq(creator)
-        expect(bug2.creator).to eq(creator)
+        expect(bugs.map(&:creator)).to all(eq(creator))
       end
 
       it 'can assign bugs to developer' do
@@ -41,10 +39,9 @@ RSpec.describe Project, type: :model do
         project.reload
 
         # Check if the bugs are assigned to the developer
-        expect(developer.bugs).to include(bug1, bug2, bug3)
+        expect(developer.bugs).to include(*bugs)
       end
     end
-
   end
 
   describe 'associations' do
