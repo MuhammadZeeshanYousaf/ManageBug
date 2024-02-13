@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.feature 'Creating project' do
+RSpec.feature 'Projects' do
 
-  context 'Manager' do
-
+  describe 'by Manager' do
     let(:manager) { create :user, :manager }
     before do
       # Using Devise's sign_in helper
@@ -12,7 +11,7 @@ RSpec.feature 'Creating project' do
       visit projects_path
     end
 
-    def create_project(name, details, form_id: 'new_project')
+    def create_project(name=nil, details=nil, form_id: 'new_project')
       click_on 'Add New Project'  # Assuming this is the button/link to create a new project
 
       # Assuming there's a form to create a new project, fill it out
@@ -47,8 +46,7 @@ RSpec.feature 'Creating project' do
       end
     end
 
-
-    scenario 'can create multiple projects' do
+    scenario 'create multiple projects' do
       # 1 - New project
       expect(page).to have_content('Projects')  # Assuming this is a heading on the projects#index page
 
@@ -59,6 +57,28 @@ RSpec.feature 'Creating project' do
       # 2 - Another project
       create_project('Project 2', 'This is Project 2 details') do |project|
         expect(project).to be_present
+      end
+    end
+
+    context 'does not allow creating the project' do
+      it 'without name & details' do
+        create_project
+        expect(page).to have_content("There's some error while saving the project")
+      end
+
+      it 'without name' do
+        create_project nil, 'Project test details'
+        expect(page).to_not have_content('Project 1 details')
+        expect(page).to have_content("There's some error while saving the project")
+      end
+    end
+
+    context 'allows creating project' do
+      it 'without details' do
+        create_project 'Project 3' do |project|
+          expect(project).to be_present
+        end
+        expect(page).to_not have_content("There's some error while saving the project")
       end
     end
 
