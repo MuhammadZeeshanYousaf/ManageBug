@@ -24,7 +24,7 @@ RSpec.describe 'User Sign up' do
   context 'for manager' do
     it 'successfully creates account for manager' do
       visit_signup :manager
-      manager_user = build(:user, role: :manager)
+      manager_user = build(:user, :manager)
       expect(manager_user.role).to eq('manager')
       fill_in_details manager_user
       expect_success :manager, button_text: 'Sign Up'
@@ -34,7 +34,7 @@ RSpec.describe 'User Sign up' do
   context 'for developer' do
     it 'successfully creates account for developer' do
       visit_signup :developer
-      developer_user = build(:user, role: :developer)
+      developer_user = build(:user, :developer)
       expect(developer_user.role).to eq('developer')
       fill_in_details developer_user
       expect_success :developer, button_text: 'Sign Up'
@@ -44,7 +44,7 @@ RSpec.describe 'User Sign up' do
   context 'for QA' do
     it 'successfully creates account for QA' do
       visit_signup :QA
-      qa_user = build(:user, role: :QA)
+      qa_user = build(:user, :QA)
       expect(qa_user.role).to eq('QA')
       fill_in_details qa_user
       expect_success :QA, button_text: 'Sign Up'

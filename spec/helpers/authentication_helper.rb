@@ -34,7 +34,7 @@ module AuthenticationHelper
     user = create(:user, user_role)
     fill_in_credentials user
     # Expectations: Assuming successful login redirects to the user's projects
-    expect_success user_role, button_text: 'Login'
+    expect_success user_role
     user
   end
 
