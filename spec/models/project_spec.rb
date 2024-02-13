@@ -41,6 +41,13 @@ RSpec.describe Project, type: :model do
         # Check if the bugs are assigned to the developer
         expect(developer.bugs).to include(*bugs)
       end
+
+      it 'cannot create project' do
+        qa = create :user, :QA
+        project = build :project, creator: qa
+        expect(project).to_not be_valid
+        expect(project.errors.full_messages).to include('Creator cannot be QA')
+      end
     end
   end
 
