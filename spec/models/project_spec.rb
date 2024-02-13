@@ -7,22 +7,44 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
 
   describe 'project bugs' do
-    it 'can have multiple bugs' do
-      creator = create :user, :manager
-      project = create(:project, creator:)
+    let(:manager) { create :user, :manager}
+    let(:project) { create :project, creator: manager }
+    let(:creator) { create :user, :QA }
+    let(:developer) { create :user, :developer }
+    # Create multiple bugs associated with the project
+    let(:bug1) { create(:bug, project:, creator:, developer:) }
+    let(:bug2) { create(:bug, project:, creator:, developer:) }
+    let(:bug3) { create(:bug, project:, creator:, developer:) }
 
-      # Create multiple bugs associated with the project
-      assignee = create :user, :developer
-      bug1 = create(:bug, project:, user: assignee)
-      bug2 = create(:bug, project:, user: assignee)
-      bug3 = create(:bug, project:, user: assignee)
-
-      # Reload the project to make sure the association is updated
-      project.reload
-
-      # Check if the bugs are associated with the project
-      expect(project.bugs).to include(bug1, bug2, bug3)
+    context 'project' do
+      it 'can have multiple bugs' do
+        expect(project.bugs).to include(bug1, bug2, bug3)
+      end
     end
+
+    context 'manager' do
+      it 'can create project' do
+        expect(project.creator).to eq(manager)
+      end
+    end
+
+    context 'QA' do
+      it 'can create multiple bugs' do
+        expect(creator).to be_QA
+        expect(bug1.creator).to eq(creator)
+        expect(bug2.creator).to eq(creator)
+        expect(bug2.creator).to eq(creator)
+      end
+
+      it 'can assign bugs to developer' do
+        # Reload the project to make sure the association is updated
+        project.reload
+
+        # Check if the bugs are assigned to the developer
+        expect(developer.bugs).to include(bug1, bug2, bug3)
+      end
+    end
+
   end
 
   describe 'associations' do
