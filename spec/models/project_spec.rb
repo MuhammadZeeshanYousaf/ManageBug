@@ -5,6 +5,26 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
+
+  describe 'project bugs' do
+    it 'can have multiple bugs' do
+      creator = create :user, :manager
+      project = create(:project, creator:)
+
+      # Create multiple bugs associated with the project
+      assignee = create :user, :developer
+      bug1 = create(:bug, project:, user: assignee)
+      bug2 = create(:bug, project:, user: assignee)
+      bug3 = create(:bug, project:, user: assignee)
+
+      # Reload the project to make sure the association is updated
+      project.reload
+
+      # Check if the bugs are associated with the project
+      expect(project.bugs).to include(bug1, bug2, bug3)
+    end
+  end
+
   describe 'associations' do
     it { should have_many(:project_users).dependent(:destroy) }
     it { should have_many(:users).through(:project_users) }

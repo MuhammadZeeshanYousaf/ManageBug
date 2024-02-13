@@ -9,7 +9,7 @@ class Bug < ApplicationRecord
   }
   enum bug_type: {
     bug: 0,
-    task: 1,
+    feature: 1,
   }
   # has_one_attached :image
   # validates :image, presence: true
