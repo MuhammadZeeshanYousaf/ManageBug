@@ -15,8 +15,7 @@ class Project < ApplicationRecord
     def creator_not_qa_or_dev
       errors.add(:creator, 'cannot be QA') if creator&.QA?
       errors.add(:creator, 'cannot be developer') if creator&.developer?
+      errors.add(:creator, 'can only be manager') unless creator&.manager?
     end
-
-
 
 end

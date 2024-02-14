@@ -1,33 +1,36 @@
 class Bug < ApplicationRecord
   belongs_to :project
-  # belongs_to :user
   belongs_to :developer, class_name: 'User', foreign_key: 'user_id'
   belongs_to :creator, class_name: 'User'
 
   enum status: {
     pending: 0,
-    in_progress: 1,
-    closed: 2,
+    started: 1,
+    completed: 2,
     resolved: 3,
   }
   enum bug_type: {
     bug: 0,
     feature: 1,
   }
-  # has_one_attached :image
-  # validates :image, presence: true
-  validates :title, presence: :true
+
+  validates :title, :status, :bug_type, :developer, :project_id, :deadline, presence: true
   validates_uniqueness_of :title, scope: :project_id
-  validates :project_id, presence: true
   validate :deadline_cannot_be_in_the_past
-  default_scope -> { order(created_at: :asc) }
-  validates :screenshot, presence: :true
-
+  validate :assignee_is_developer
+  validate :deadline_cannot_be_in_the_past, on: :create
   mount_uploader :screenshot, ImageUploader
+  default_scope -> { order(created_at: :asc) }
 
-  def deadline_cannot_be_in_the_past
-    if deadline.present? && deadline < Date.today
-      errors.add(:deadline, "can't be in the past")
+  private
+    def deadline_cannot_be_in_the_past
+      if deadline.present? && deadline < Date.today
+        errors.add(:deadline, 'cannot be in the past')
+      end
     end
-  end
+
+    def assignee_is_developer
+      errors.add(:developer, 'must have role developer') unless developer&.developer?
+    end
+
 end

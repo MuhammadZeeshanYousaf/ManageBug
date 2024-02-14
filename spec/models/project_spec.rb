@@ -64,6 +64,7 @@ RSpec.describe Project, type: :model do
     it { should have_many(:project_users).dependent(:destroy) }
     it { should have_many(:users).through(:project_users) }
     it { should have_one_attached(:image) }
+    # Projects can have multiple bugs.
     it { should have_many(:bugs) }
   end
 
