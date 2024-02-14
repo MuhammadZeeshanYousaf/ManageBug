@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render "shared/navigation_bar" %>
+  <%= render "shared/navigation_bar", from: "bug" %>
   <%= render "shared/errors", obj: @bug %>
   <nav class="d-flex align-items-center justify-content-between mt-4">
     <div>
@@ -133,7 +133,7 @@
                 </clipPath>
               </defs>
             </svg> %>
-            <%= bug.deadline? ? time_ago_in_words(bug.deadline).capitalize : bug.deadline %>
+            <%= bug.deadline? ? bug.deadline.to_date : bug.deadline %>
           </td>
           <td class="text-center">
             <span class="text-white rounded-circle p-2" style="background-color: #F09785;">

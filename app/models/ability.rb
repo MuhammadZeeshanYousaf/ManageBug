@@ -33,7 +33,9 @@ class Ability
       can :manage, Project
       can :read, Bug
     elsif user.QA?
-      can [:read, :update], Project
+      can [:read, :update], Project do |project|
+        project.users.include? user
+      end
       can :create, Bug
       can :manage, Bug, creator_id: user.id
     elsif user.developer?
