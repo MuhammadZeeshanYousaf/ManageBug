@@ -4,8 +4,7 @@ RSpec.feature 'User Logout', type: :feature do
 
   def expect_successful_logout(user)
     # Find a <span> element with the user name as text using XPath selector
-    find(:xpath, "//span[contains(text(), '#{user.name}')]").click
-
+    find(:xpath, "//*[contains(text(), '#{user.name}')]/following-sibling::img").click
     click_on 'Logout'
 
     # Expectations: Assuming successful logout redirects to the home page

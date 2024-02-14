@@ -46,7 +46,7 @@ RSpec.feature 'Projects' do
       end
     end
 
-    scenario 'create multiple projects' do
+    scenario 'can create multiple projects' do
       # 1 - New project
       expect(page).to have_content('Projects')  # Assuming this is a heading on the projects#index page
 
