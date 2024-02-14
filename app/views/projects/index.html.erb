@@ -1,6 +1,6 @@
-<div class="dashboard-background" style="min-height: 94vh;">
+<div class="dashboard-background pb-4" style="min-height: 94vh;">
   <div class='container'>
-    <%= render "shared/navigation_bar" %>
+    <%= render "shared/navigation_bar", from: "project" %>
     <div class="d-flex align-items-center justify-content-between" style="height: 72px;">
       <div class="d-flex align-items-center h-75">
         <div class="h-100 bg-success" style="width: 4px;"></div>
@@ -8,13 +8,13 @@
           <div class="fw-bold">Projects</div>
           <div class="fw-light custom-text-color">Hi DeVisnext, welcome to ManageBug</div>
         </div>
-        <form class="d-flex h-100" role='search'>
+        <form class="d-flex" role='search' style="height: 45px;">
           <input class="form-control me-2 ms-2 rounded-2 border-0 h-100" type="search" placeholder="Search for projects here" style="background-color: #F1F1F1;"  />
         </form>
-        <% if current_user.role == "manager" %>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#new_project_modal" class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Project</button>
-        <% elsif current_user.role == "QA" %>
-          <button class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap">+ Add New Bug</button>
+        <% if can? :create, @project %>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#new_project_modal" class="btn btn-lg btn-primary fs-6 rounded-2 px-4 text-nowrap" style="height: 45px;">
+            + Add New Project
+          </button>
         <% end %>
         <div class="dropdown h-75 py-2 px-2 ms-2">
           <div role="button" data-bs-toggle="dropdown">
@@ -22,7 +22,8 @@
             <img src="/images/chevron-down.png" class="ms-2" />
           </div>
           <ul class="dropdown-menu">
-            <li class="dropdown-item">This is my sorting dropdown</li>
+            <%= link_to "Alphabet (A- Z)", projects_path(sort_by: "alphabet"), class: "dropdown-item" %>
+            <%= link_to "Date Added", projects_path(sort_by: "date_added"), class: "dropdown-item" %>
           </ul>
         </div>
       </div>
@@ -73,6 +74,9 @@
                   <div class="custom-text-color mt-2">
                     Task Done: <span class="text-black">02/60</span>
                   </div>
+                  <div class="d-flex align-items-center justify-content-end custom-text-color" style="font-size: 12px;">
+                    Created on: <span class="text-black">&nbsp;&nbsp;<%= project.created_at.to_date %></span>
+                  </div>
                 </div>
               </div>
             <% end %>
@@ -92,11 +96,10 @@
         Display
       </span>
       <div>
-        <select class="form-select">
-          <option>5</option>
-          <option selected>10</option>
-          <option>25</option>
-        </select>
+        <%= form_tag projects_path, method: :get do %>
+          <%= select_tag :per_page, options_for_select([6, 12, 15, 18], :selected => params[:per_page] || 6 ), 
+                include_blank: false, onchange: "this.form.submit()", class: "form-select"  %>
+        <% end %>
       </div>
     </div>
     <div class="digg_pagination">
@@ -130,7 +133,6 @@
             </div>
             <div class="col-md-4">
               <div class="form-control border-0" data-controller="previews">
-                <%# <%= f.label :image, style: "display: block;", for: "image-btn" %>
                 <label for="image-btn" class="image-label" data-previews-target="showLabel">
                   <svg xmlns="http://www.w3.org/2000/svg" width="53" height="54" viewBox="0 0 53 54" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7724 12.1415C15.86 11.4147 17.1387 11.0269 18.4468 11.0269C19.2866 11.0269 19.9674 11.7077 19.9674 12.5475C19.9674 13.3873 19.2866 14.0681 18.4468 14.0681C17.7402 14.0681 17.0495 14.2776 16.462 14.6701C15.8746 15.0627 15.4167 15.6206 15.1463 16.2734C14.8759 16.9262 14.8052 17.6445 14.943 18.3374C15.0808 19.0304 15.4211 19.667 15.9207 20.1666C16.4203 20.6662 17.0568 21.0064 17.7498 21.1443C18.4428 21.2821 19.1611 21.2114 19.8139 20.941C20.4666 20.6706 21.0246 20.2127 21.4171 19.6252C21.8097 19.0377 22.0192 18.347 22.0192 17.6405C22.0192 16.8007 22.7 16.1199 23.5398 16.1199C24.3796 16.1199 25.0604 16.8007 25.0604 17.6405C25.0604 18.9485 24.6725 20.2272 23.9458 21.3148C23.2191 22.4024 22.1862 23.2501 20.9777 23.7507C19.7692 24.2513 18.4394 24.3822 17.1565 24.127C15.8736 23.8719 14.6952 23.242 13.7702 22.317C12.8453 21.3921 12.2154 20.2137 11.9602 18.9307C11.705 17.6478 11.836 16.318 12.3366 15.1096C12.8371 13.9011 13.6848 12.8682 14.7724 12.1415Z" fill="#8D98AA"/>

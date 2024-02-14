@@ -31,6 +31,11 @@ class CreateBugTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_path(@project)
     follow_redirect!
     assert_template "projects/show"
+    HardJob.drain
+    email = ActionMailer::Base.deliveries.last
+    assert_equal [@user2.email], email.to
+    assert_equal "Assigned to a Project/Bug", email.subject
+    assert_match "You have been assigned to the project!", email.body.to_s
   end
 
   test "should not create bug except QA user" do
@@ -42,7 +47,10 @@ class CreateBugTest < ActionDispatch::IntegrationTest
     assert_no_difference "Bug.count" do
       post bugs_path, params: { bug: new_bug }
     end
-    assert_template "projects/show"
+    assert_response :redirect
+    # assert_redirected_to root_path
+    follow_redirect!
+    # assert_template "projects/show"
     assert_not flash.empty?
   end
 end

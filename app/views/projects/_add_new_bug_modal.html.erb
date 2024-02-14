@@ -21,7 +21,7 @@
               </div>
               <div class="form-control border-0 mt-2">
                 <%= f.label :deadline, "Add due date" %>
-                <%= f.date_field :deadline, class: "p-2 rounded-2", style: "border: 0.5px dashed grey;" %>
+                <%= f.date_field :deadline, class: "p-2 rounded-2", style: "border: 0.5px dashed grey;", onkeypress: "return false" %>
               </div>
             </div>
             <div class="form-control border-0" style="outline: none;">
