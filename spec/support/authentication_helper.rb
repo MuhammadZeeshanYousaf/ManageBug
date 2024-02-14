@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+require 'rails_helper'
 module AuthenticationHelper
   def expect_success(role, button_text: 'Login')
     role = role.to_s
@@ -37,5 +39,9 @@ module AuthenticationHelper
     expect_success user_role
     user
   end
+end
 
+# configure Authentication helper to be accessible in feature who requires it
+RSpec.configure do |config|
+  config.include AuthenticationHelper, type: :feature
 end

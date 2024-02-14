@@ -1,4 +1,4 @@
-require 'support/authentication_helpers'
+require 'support/authentication_helper'
 
 RSpec.describe 'User Sign up' do
 
