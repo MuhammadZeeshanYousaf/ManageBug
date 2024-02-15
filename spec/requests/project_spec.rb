@@ -43,7 +43,7 @@ RSpec.describe "Projects", type: :request do
     describe "GET projects/:id (developer)" do
       let(:project) { create :project }
 
-      it 'assigns a project and verify' do
+      it 'assigns a project and verify accessibility' do
         create(:project_user, project:, user: developer)
         expect_show_response
       end
@@ -74,7 +74,7 @@ RSpec.describe "Projects", type: :request do
     describe "GET projects/:id (QA)" do
       let(:project) { create :project }
 
-      it 'assigns a project and verify' do
+      it 'assigns a project and verify accessibility' do
         create(:project_user, project:, user: qa)
         expect_show_response
       end
