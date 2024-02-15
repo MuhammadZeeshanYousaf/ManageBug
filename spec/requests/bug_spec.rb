@@ -22,7 +22,18 @@ RSpec.describe "Bugs", type: :request do
     describe 'PATCH /projects/:project_id/bugs/:id' do
       let(:bug) { create :bug, creator: qa, project: }
 
-      it('allowed to update status') { expect_to_update_status request_to_update_status(:started) }
+      it('allowed to update status') { expect_to_update_status when_request_to_update_status(:started) }
+    end
+
+    describe 'DELETE /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, creator: qa, project: }
+
+      it 'allows to delete bug' do
+        delete project_bug_path(project, bug)
+
+        expect(response).to redirect_to(project_path(project))
+        expect(bug.touch).not_to be_truthy
+      end
     end
 
   end
@@ -40,7 +51,13 @@ RSpec.describe "Bugs", type: :request do
     describe 'PATCH /projects/:project_id/bugs/:id' do
       let(:bug) { create :bug, developer:, project: }
 
-      it('allowed to update status') { expect_to_update_status request_to_update_status(:started) }
+      it('allowed to update status') { expect_to_update_status when_request_to_update_status(:started) }
+    end
+
+    describe 'DELETE /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, creator: qa, project: }
+
+      it('does not allow to delete bug') { expect_not_to_delete bug }
     end
 
   end
@@ -59,10 +76,14 @@ RSpec.describe "Bugs", type: :request do
     describe 'PATCH /projects/:project_id/bugs/:id' do
       let(:bug) { create :bug, developer:, project: }
 
-      it('not allowed to update status') { expect_not_to_update_status request_to_update_status(:started) }
-
+      it('not allowed to update status') { expect_not_to_update_status when_request_to_update_status(:started) }
     end
 
+    describe 'DELETE /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, creator: qa, project: }
+
+      it('does not allow to delete bug') { expect_not_to_delete bug }
+    end
 
   end
 
@@ -78,7 +99,7 @@ RSpec.describe "Bugs", type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    def request_to_update_status(new_status)
+    def when_request_to_update_status(new_status)
       bug.pending!
 
       patch project_bug_path(project, bug), params: { status: new_status }
@@ -93,6 +114,13 @@ RSpec.describe "Bugs", type: :request do
     def expect_not_to_update_status(new_status)
       expect(response).to have_http_status(:not_found)
       expect(bug.reload.status.to_sym).not_to eq(new_status)
+    end
+
+    def expect_not_to_delete(bug)
+      delete project_bug_path(project, bug)
+
+      expect(response).to have_http_status(:not_found)
+      expect(bug.touch).to be_truthy
     end
 
 end
