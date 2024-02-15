@@ -39,4 +39,23 @@ RSpec.describe "Bugs", type: :request do
     end
   end
 
+  context 'when user is manager' do
+    let(:manager) { create :user, :manager }
+    before(:each) { sign_in manager }
+    let(:qa) { create :user, :QA }
+    let(:developer) { create :user, :developer }
+    let(:project) { create :project, creator: manager }
+
+    describe 'POST /projects/:project_id/bugs' do
+      it 'does not allow creating bug' do
+        bug_attrs = attributes_for :bug
+        bug_attrs[:screenshot] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
+        bug_attrs[:user_id] = developer.id  # todo - change this to developer_id if foreign key changes
+
+        post project_bugs_path(project), params: { bug: bug_attrs }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
 end
