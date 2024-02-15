@@ -4,6 +4,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { Faker::Alphanumeric.alphanumeric(number: 8) }
     phone_number { Faker::PhoneNumber.phone_number }
+    role { :manager }
 
     trait :manager do
       role { :manager }

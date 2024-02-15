@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :bug do
     project
-    creator factory: :user
-    developer factory: :user
+    association :creator, factory: [:user, :manager]
+    association :developer, factory: [:user, :developer]
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     deadline { Faker::Time.forward(days: 10) }

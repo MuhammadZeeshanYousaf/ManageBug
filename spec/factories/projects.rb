@@ -3,6 +3,7 @@ FactoryBot.define do
   factory :project do
     name { Faker::Company.unique.name }
     details { Faker::Lorem.paragraph }
+    creator factory: :user
 
     # Define the image attachment using Active Storage
     after(:build) do |project|
