@@ -63,6 +63,37 @@ RSpec.describe "Projects", type: :request do
     end
   end
 
+  context 'when user is QA' do
+    let(:qa) { create :user, :QA }
+    before(:each) { sign_in qa }
+
+    describe "GET /index" do
+      it { expect_index_response }
+    end
+
+    describe "GET projects/:id (QA)" do
+      let(:project) { create :project }
+
+      it 'assigns a project and verify' do
+        create(:project_user, project:, user: qa)
+        expect_show_response
+      end
+
+      it 'does not assign and verify inaccessibility' do
+        expect { get project_path(project) }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+
+    describe 'POST /projects' do
+      it 'returns http status unauthorized' do
+        project_attrs = attributes_for :project
+        project_attrs[:image] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
+
+        expect { post projects_path, params: { project: project_attrs } }.to raise_error(CanCan::AccessDenied)
+      end
+    end
+  end
+
 
   private
 
