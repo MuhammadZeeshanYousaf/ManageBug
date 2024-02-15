@@ -28,14 +28,7 @@ RSpec.describe "Bugs", type: :request do
     let(:project) { create :project } # created by arbitrary manager
 
     describe 'POST /projects/:project_id/bugs' do
-      it 'does not allow creating bug' do
-        bug_attrs = attributes_for :bug
-        bug_attrs[:screenshot] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
-        bug_attrs[:user_id] = developer.id  # todo - change this to developer_id if foreign key changes
-
-        post project_bugs_path(project), params: { bug: bug_attrs }
-        expect(response).to have_http_status(:not_found)
-      end
+      it('does not allow creating bug') { expect_not_to_create_bug }
     end
   end
 
@@ -47,15 +40,20 @@ RSpec.describe "Bugs", type: :request do
     let(:project) { create :project, creator: manager }
 
     describe 'POST /projects/:project_id/bugs' do
-      it 'does not allow creating bug' do
-        bug_attrs = attributes_for :bug
-        bug_attrs[:screenshot] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
-        bug_attrs[:user_id] = developer.id  # todo - change this to developer_id if foreign key changes
-
-        post project_bugs_path(project), params: { bug: bug_attrs }
-        expect(response).to have_http_status(:not_found)
-      end
+      it('does not allow creating bug') { expect_not_to_create_bug }
     end
   end
+
+
+  private
+
+    def expect_not_to_create_bug
+      bug_attrs = attributes_for :bug
+      bug_attrs[:screenshot] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
+      bug_attrs[:user_id] = developer.id  # todo - change this to developer_id if foreign key changes
+
+      post project_bugs_path(project), params: { bug: bug_attrs }
+      expect(response).to have_http_status(:not_found)
+    end
 
 end
