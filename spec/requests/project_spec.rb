@@ -53,17 +53,12 @@ RSpec.describe "Projects", type: :request do
       end
     end
 
-    xdescribe 'POST /projects' do
+    describe 'POST /projects' do
       it 'returns http status unauthorized' do
-        project_attrs = project.attributes
+        project_attrs = attributes_for :project
         project_attrs[:image] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
-        post projects_path, params: {
-          project: project_attrs,
-        }
 
-        expect(response).to have_http_status(:unauthorized)
-        # expect(response).to redirect_to(projects_path)
-        expect(Project.count).to eq(0)
+        expect { post projects_path, params: { project: project_attrs } }.to raise_error(CanCan::AccessDenied)
       end
     end
   end
