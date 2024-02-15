@@ -2,25 +2,6 @@ require 'support/authentication_helper'
 
 RSpec.describe 'User Sign up' do
 
-  def visit_signup(role)
-    role = role.to_s
-    raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
-    visit root_path
-    find("a[href='#{new_user_registration_path(role: role)}']", text: role.camelize).click
-    expect(current_url).to include(new_user_registration_path(role: role))
-    expect(page).to have_content('Sign Up')
-  end
-
-  def fill_in_details(user)
-    raise ArgumentError, 'user param must be an object of User class' unless user.is_a? User
-    fill_in 'Name', with: user.name, exact: true
-    fill_in 'Mobile Number', with: user.phone_number, exact: true
-    fill_in 'Email', with: user.email, exact: true
-    fill_in 'Password', with: user.password, exact: true
-    fill_in 'Password confirmation', with: user.password, exact: true
-  end
-
-
   context 'for manager' do
     it 'successfully creates account for manager' do
       visit_signup :manager
@@ -50,5 +31,26 @@ RSpec.describe 'User Sign up' do
       expect_success :QA, button_text: 'Sign Up'
     end
   end
+
+
+  private
+
+    def visit_signup(role)
+      role = role.to_s
+      raise ArgumentError, "role param must be #{User.roles.keys.join(' or ')}" unless User.roles.keys.include?(role)
+      visit root_path
+      find("a[href='#{new_user_registration_path(role: role)}']", text: role.camelize).click
+      expect(current_url).to include(new_user_registration_path(role: role))
+      expect(page).to have_content('Sign Up')
+    end
+
+    def fill_in_details(user)
+      raise ArgumentError, 'user param must be an object of User class' unless user.is_a? User
+      fill_in 'user[name]', with: user.name, exact: true
+      fill_in 'user[phone_number]', with: user.phone_number, exact: true
+      fill_in 'user[email]', with: user.email, exact: true
+      fill_in 'user[password]', with: user.password, exact: true
+      fill_in 'user[password_confirmation]', with: user.password, exact: true
+    end
 
 end
