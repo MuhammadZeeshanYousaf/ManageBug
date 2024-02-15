@@ -32,11 +32,11 @@ class ProjectsController < ApplicationController
         flash[:success] = "New project created"
         redirect_to projects_path
       else
-        flash[:danger] = "There's some error while saving the project"
+        flash[:error] = "There's some error while saving the project"
         render :index, status: :unprocessable_entity
       end
     else
-      flash[:danger] = "Only manager can create project"
+      flash[:error] = "Only manager can create project"
       render :index, status: :unprocessable_entity
     end
   end
@@ -49,9 +49,5 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :image, :details, user_ids: [])
-  end
-
-  def set_project
-    @project = Project.find(params[:id])
   end
 end

@@ -1,4 +1,5 @@
 class BugsController < ApplicationController
+  before_action :authenticate_user!
   load_and_authorize_resource
 
   def index
@@ -20,11 +21,11 @@ class BugsController < ApplicationController
         flash[:success] = "New Bug Added"
         redirect_to @project
       else
-        flash[:danger] = "There's some error while saving the bug"
+        flash[:error] = "There's some error while saving the bug"
         render "projects/show", status: :unprocessable_entity
       end
     else
-      flash[:danger] = "Only QA can create project"
+      flash[:error] = "Only QA can create project"
       render "projects/show", status: :unprocessable_entity
     end
   end
@@ -41,11 +42,11 @@ class BugsController < ApplicationController
         flash[:success] = "Bug status updated"
         redirect_to @project
       else
-        flash[:danger] = "There's some error while updating status"
+        flash[:error] = "There's some error while updating status"
         render "projects/show", status: :unprocessable_entity
       end
     else
-      flash[:danger] = "Only QA & manager can update project"
+      flash[:error] = "Only QA & manager can update project"
       render "projects/show", status: :unprocessable_entity
     end
   end

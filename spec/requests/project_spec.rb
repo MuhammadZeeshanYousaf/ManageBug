@@ -49,16 +49,16 @@ RSpec.describe "Projects", type: :request do
       end
 
       it 'does not assign and verify inaccessibility' do
-        expect { get project_path(project) }.to raise_error(CanCan::AccessDenied)
+        expect_not_to_have_access project_path(project)
       end
     end
 
     describe 'POST /projects' do
-      it 'returns http status unauthorized' do
+      it 'does not allow to create' do
         project_attrs = attributes_for :project
         project_attrs[:image] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
 
-        expect { post projects_path, params: { project: project_attrs } }.to raise_error(CanCan::AccessDenied)
+        expect_not_to_have_access projects_path, params: { project: project_attrs }, request: :post
       end
     end
   end
@@ -80,16 +80,16 @@ RSpec.describe "Projects", type: :request do
       end
 
       it 'does not assign and verify inaccessibility' do
-        expect { get project_path(project) }.to raise_error(CanCan::AccessDenied)
+        expect_not_to_have_access project_path(project)
       end
     end
 
     describe 'POST /projects' do
-      it 'returns http status unauthorized' do
+      it 'does not allow to create' do
         project_attrs = attributes_for :project
         project_attrs[:image] = fixture_file_upload('spec/fixtures/images/example.png', 'image/png')
 
-        expect { post projects_path, params: { project: project_attrs } }.to raise_error(CanCan::AccessDenied)
+        expect_not_to_have_access projects_path, params: { project: project_attrs }, request: :post
       end
     end
   end
@@ -110,6 +110,15 @@ RSpec.describe "Projects", type: :request do
       expect(assigns(:project)).to eq(project)
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:show)
+    end
+
+    def expect_not_to_have_access(path, params: {}, request: :get)
+      # 1
+      # expect { get project_path(project) }.to raise_error(CanCan::AccessDenied)
+
+      # 2
+      request.eql?(:post) ? post(path, params:) : get(path, params:)
+      expect(response).to have_http_status(:not_found)
     end
 
 end
