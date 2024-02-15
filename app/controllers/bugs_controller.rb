@@ -10,11 +10,12 @@ class BugsController < ApplicationController
   end
 
   def create
-    @bug = Bug.new(bug_params)
-    @project = Project.find(params[:bug][:project_id])
+    @project = Project.find(params[:project_id])
+    @bug = @project.bugs.new(bug_params)
     @bug.status = 0
     @bug.creator_id = current_user.id
     @bug.bug_type = "bug"
+    
     if can? :create, @bug
       if @bug.save
         HardJob.perform_async([@bug.user.email])
@@ -64,6 +65,6 @@ class BugsController < ApplicationController
   private
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :user_id, :project_id, :image, :deadline, :screenshot)
+    params.require(:bug).permit(:title, :description, :user_id, :image, :deadline, :screenshot)
   end
 end
