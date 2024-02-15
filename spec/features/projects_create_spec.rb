@@ -19,18 +19,20 @@ RSpec.feature 'Projects' do
         fill_in 'Project Name', with: name
         fill_in 'Short Details', with: details
         # find select users dropdown and choose first two
-        begin
-          select_dropdown = find('select', text: 'Select users')
-        rescue
-          # Find the label using its text
-          label = find('label', text: 'Select users')
-          # Find the sibling select element
-          select_dropdown = label.sibling('select')
-        ensure
-          # Select the first two options (users)
-          select_dropdown.find(:option, match: :first).select_option
-          select_dropdown.all(:option, minimum: 2)[1].select_option
-        end
+
+        # @note - Selecting users for this test not required
+        # begin
+        #   select_dropdown = find('select', text: 'Select users')
+        # rescue
+        #   # Find the label using its text
+        #   label = find('label', text: 'Select users')
+        #   # Find the sibling select element
+        #   select_dropdown = label.sibling('select')
+        # ensure
+        #   # Select the first two options (users)
+        #   select_dropdown.find(:option, match: :first).select_option
+        #   select_dropdown.all(:option, minimum: 2)[1].select_option
+        # end
 
         # Upload project image
         label = find('label', text: 'Upload project photo')
