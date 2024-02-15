@@ -19,6 +19,12 @@ RSpec.describe "Bugs", type: :request do
       end
     end
 
+    describe 'PATCH /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, creator: qa, project: }
+
+      it('allowed to update status') { expect_to_update_status request_to_update_status(:started) }
+    end
+
   end
 
   context 'when user is developer' do
@@ -30,6 +36,13 @@ RSpec.describe "Bugs", type: :request do
     describe 'POST /projects/:project_id/bugs' do
       it('does not allow creating bug') { expect_not_to_create_bug }
     end
+
+    describe 'PATCH /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, developer:, project: }
+
+      it('allowed to update status') { expect_to_update_status request_to_update_status(:started) }
+    end
+
   end
 
   context 'when user is manager' do
@@ -42,6 +55,15 @@ RSpec.describe "Bugs", type: :request do
     describe 'POST /projects/:project_id/bugs' do
       it('does not allow creating bug') { expect_not_to_create_bug }
     end
+
+    describe 'PATCH /projects/:project_id/bugs/:id' do
+      let(:bug) { create :bug, developer:, project: }
+
+      it('not allowed to update status') { expect_not_to_update_status request_to_update_status(:started) }
+
+    end
+
+
   end
 
 
@@ -54,6 +76,23 @@ RSpec.describe "Bugs", type: :request do
 
       post project_bugs_path(project), params: { bug: bug_attrs }
       expect(response).to have_http_status(:not_found)
+    end
+
+    def request_to_update_status(new_status)
+      bug.pending!
+
+      patch project_bug_path(project, bug), params: { status: new_status }
+      new_status
+    end
+
+    def expect_to_update_status(new_status)
+      expect(response).to redirect_to(project_path(project))
+      expect(bug.reload.status.to_sym).to eq(new_status)
+    end
+
+    def expect_not_to_update_status(new_status)
+      expect(response).to have_http_status(:not_found)
+      expect(bug.reload.status.to_sym).not_to eq(new_status)
     end
 
 end
