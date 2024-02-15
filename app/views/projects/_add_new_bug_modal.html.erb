@@ -13,7 +13,7 @@
         </div>
         <hr />
         <main class="px-3">
-          <%= form_for(obj, url: bugs_path, method: :post, :html => { class: "form-horizontal", role: "form" }) do |f| %>
+          <%= form_for(obj, url: project_bugs_path(@project), method: :post, :html => { class: "form-horizontal", role: "form" }) do |f| %>
             <div class="d-flex align-items-center">
               <div class="form-control border-0 mt-2 d-flex w-50">
                 <%= f.label :user_id, "Assign to", class: "text-nowrap" %>

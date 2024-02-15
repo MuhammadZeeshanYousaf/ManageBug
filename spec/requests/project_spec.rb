@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Projects", type: :request do
-  # memoized block will be evaluated when 'user' got assigned in any context
   context 'when user is manager' do
     let(:manager) { create :user }
     let(:project) { create :project, creator: manager }

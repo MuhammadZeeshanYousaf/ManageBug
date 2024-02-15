@@ -18,7 +18,7 @@ class UpdateBugStatusTest < ActionDispatch::IntegrationTest
   test "should update bug status" do
     sign_in @user3
     get project_path(@project)
-    put bug_path(@bug, project_id: @project.id, status: "closed")
+    put project_bug_path(@bug, project_id: @project.id, status: "closed")
     assert_redirected_to project_path(@project)
     follow_redirect!
     assert_template "projects/show"

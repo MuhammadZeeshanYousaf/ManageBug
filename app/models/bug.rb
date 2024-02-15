@@ -1,5 +1,6 @@
 class Bug < ApplicationRecord
   belongs_to :project
+  belongs_to :user # @todo - it must be developer like the following
   belongs_to :developer, class_name: 'User', foreign_key: 'user_id'
   belongs_to :creator, class_name: 'User'
 

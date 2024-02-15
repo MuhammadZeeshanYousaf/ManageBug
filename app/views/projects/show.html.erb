@@ -113,13 +113,13 @@
           </td>
           <td data-bs-toggle="modal" data-bs-target="#bug_detail_modal_<%= bug.id %>" style="cursor: pointer;">
             <div class="d-flex align-items-center">
-              <%= content_tag(:div, "", class: "rounded-circle d-block me-2 #{bug.status == "pending" ? "empty-circle-danger" : bug.status == "in_progress" ? "empty-circle-info" : "empty-circle-success"}", style: "height: 10px; width: 10px;")%>
+              <%= content_tag(:div, "", class: "rounded-circle d-block me-2 #{bug.status == "pending" ? "empty-circle-danger" : bug.status == "started" ? "empty-circle-info" : "empty-circle-success"}", style: "height: 10px; width: 10px;")%>
               <%= bug.description %>
             </div>
           </td>
           <td class="text-center">
-            <%= link_to bug.status == "in_progress" ? "In progress" : bug.status.capitalize, "#", 
-              class: "text-decoration-none my-2 p-2 rounded #{bug.status == "pending" ? "custom-bg-danger" : bug.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}" 
+            <%= link_to bug.status == "started" ? "Started" : bug.status.capitalize, "#",
+              class: "text-decoration-none my-2 p-2 rounded #{bug.status == "pending" ? "custom-bg-danger" : bug.status == "started" ? "custom-bg-info" : "custom-bg-success"}"
             %>
           </td>
           <td data-bs-toggle="tooltip" data-bs-placement="top"  data-bs-title="Tooltip" class="text-center">
@@ -137,7 +137,7 @@
           </td>
           <td class="text-center">
             <span class="text-white rounded-circle p-2" style="background-color: #F09785;">
-              <%= bug.user.name[0].capitalize %>
+              <%= bug.developer.name[0].capitalize %>
             </span>
           </td>
           <td class="text-center">
@@ -156,31 +156,31 @@
                 </div>
               </li>
               <li>
-                <%= link_to bug_path(bug, status: "pending", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                <%= link_to project_bug_path(bug, status: "pending", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
                   <span class="custom-bg-danger p-2">Pending</span>
                 <% end %>
               </li>
               <li class="mt-2">
-                <%= link_to bug_path(bug, status: "in_progress", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
-                  <span class="custom-bg-info p-2">In progress</span>
+                <%= link_to project_bug_path(bug, status: "started", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                  <span class="custom-bg-info p-2">Started</span>
                 <% end %>
               </li>
               <% if bug.bug_type == "bug" %>
                 <li class="mt-2">
-                  <%= link_to bug_path(bug, status: "resolved", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                  <%= link_to project_bug_path(bug, status: "resolved", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
                     <span class="custom-bg-success p-2">Resolved</span>
                   <% end %>
                 </li>
               <% else %>
                 <li class="mt-2">
-                  <%= link_to bug_path(bug, status: "closed", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
+                  <%= link_to project_bug_path(bug, status: "closed", project_id: @project.id), class: "dropdown-item", data: { turbo_method: :put } do %>
                     <span class="custom-bg-success p-2">Close</span>
                   <% end %>
                 </li>
               <% end %>
               <li><hr class="dropdown-divider" /></li>
               <li class="mt-2">
-                <%= link_to bug_path(bug, project_id: @project.id), class: "dropdown-item", data: { turbo_method: :delete } do %>
+                <%= link_to project_bug_path(bug, project_id: @project.id), class: "dropdown-item", data: { turbo_method: :delete } do %>
                   <div class="text-danger d-flex align-items-center justify-content-between">
                     Delete
                     <img src="/images/delete-icon.png" alt="Delete icon" style="height: 15px; width: 15px;" />

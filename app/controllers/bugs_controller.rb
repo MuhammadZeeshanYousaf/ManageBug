@@ -34,7 +34,6 @@ class BugsController < ApplicationController
   end
 
   def update
-    # debugger
     @project = Project.find(params[:project_id])
     @bug = Bug.find(params[:id])
     if can? :update, @bug
