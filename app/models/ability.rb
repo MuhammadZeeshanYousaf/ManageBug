@@ -34,7 +34,7 @@ class Ability
     elsif user.QA?
       can [:read, :update], Project
     elsif user.developer?
-      can :read, Project
+      can :read, Project, project_users: { user: }
     end
 
   end

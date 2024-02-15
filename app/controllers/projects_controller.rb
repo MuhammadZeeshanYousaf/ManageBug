@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_project, only: :show
+  authorize_resource
 
   def index
     @projects = current_user.get_user_project.paginate(page: params[:page], per_page: 10)
@@ -29,7 +31,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
     @bug = Bug.new
   end
 
@@ -37,5 +38,9 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :image, :details, user_ids: [])
+  end
+
+  def set_project
+    @project = Project.find(params[:id])
   end
 end
