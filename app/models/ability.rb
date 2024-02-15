@@ -31,9 +31,14 @@ class Ability
 
     if user.manager?
       can :manage, Project
-    elsif user.QA? or user.developer?
+      can :read, Bug
+    elsif user.QA?
+      can [:read, :update], Project, project_users: { user: }
+      can :create, Bug
+      can :manage, Bug, creator_id: user.id
+    elsif user.developer?
       can :read, Project, project_users: { user: }
+      can [:read, :update], Bug, user: user
     end
-
   end
 end

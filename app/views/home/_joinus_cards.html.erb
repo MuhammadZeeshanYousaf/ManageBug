@@ -1,10 +1,10 @@
-<div class="w-50 h-100 d-flex flex-column align-items-center justify-content-center">
+<div class="mw-50 h-100 d-flex flex-column align-items-center justify-content-center">
   <div class="text-end w-100 container custom-text-color position-absolute top-0 end-0 mr-4 mt-4">Already have a account? <%= link_to "Sign In", new_user_session_path, class: "text-decoration-none" %></div>
   <div>
     <h3 class="text-start">Join Us!</h3>
     <p class="fw-light custom-text-color">To begin this journey, tell us what type of account you'd be opening.</p>
   </div>
-  <%= link_to new_user_registration_path(role: "manager"), class: "text-decoration-none" do %>
+  <%= link_to new_user_registration_path(role: "manager"), class: "text-decoration-none w-100" do %>
     <div class="card mt-3 border-0 custom-card">
       <div class="card-body p-8">
         <div class="row d-flex align-items-center">
@@ -18,7 +18,7 @@
             <br />
             <span class="fw-light custom-text-color">Signup as manager to manage the tasks and bugs</span>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 card-arrow" style="display: none;">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5893 3.57733C10.2639 3.25189 9.73622 3.25189 9.41079 3.57733C9.08535 3.90277 9.08535 4.4304 9.41079 4.75584L13.8215 9.16659H4.16671C3.70647 9.16659 3.33337 9.53968 3.33337 9.99992C3.33337 10.4602 3.70647 10.8333 4.16671 10.8333H13.8215L9.41079 15.244C9.08535 15.5694 9.08535 16.0971 9.41079 16.4225C9.73622 16.7479 10.2639 16.7479 10.5893 16.4225L16.4226 10.5892C16.7481 10.2637 16.7481 9.7361 16.4226 9.41066L10.5893 3.57733Z" fill="#007DFA"/>
             </svg>
@@ -41,7 +41,7 @@
             <br />
             <span class="fw-light custom-text-color">Signup as developer to assign the relevant task to QA</span>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 card-arrow" style="display: none;">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5893 3.57733C10.2639 3.25189 9.73622 3.25189 9.41079 3.57733C9.08535 3.90277 9.08535 4.4304 9.41079 4.75584L13.8215 9.16659H4.16671C3.70647 9.16659 3.33337 9.53968 3.33337 9.99992C3.33337 10.4602 3.70647 10.8333 4.16671 10.8333H13.8215L9.41079 15.244C9.08535 15.5694 9.08535 16.0971 9.41079 16.4225C9.73622 16.7479 10.2639 16.7479 10.5893 16.4225L16.4226 10.5892C16.7481 10.2637 16.7481 9.7361 16.4226 9.41066L10.5893 3.57733Z" fill="#007DFA"/>
             </svg>
@@ -64,7 +64,7 @@
             <br />
             <span class="fw-light custom-text-color">Signup as a QA to create the bugs and report in a task</span>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 card-arrow" style="display: none;">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5893 3.57733C10.2639 3.25189 9.73622 3.25189 9.41079 3.57733C9.08535 3.90277 9.08535 4.4304 9.41079 4.75584L13.8215 9.16659H4.16671C3.70647 9.16659 3.33337 9.53968 3.33337 9.99992C3.33337 10.4602 3.70647 10.8333 4.16671 10.8333H13.8215L9.41079 15.244C9.08535 15.5694 9.08535 16.0971 9.41079 16.4225C9.73622 16.7479 10.2639 16.7479 10.5893 16.4225L16.4226 10.5892C16.7481 10.2637 16.7481 9.7361 16.4226 9.41066L10.5893 3.57733Z" fill="#007DFA"/>
             </svg>
