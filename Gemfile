@@ -85,3 +85,5 @@ gem "cancancan"
 gem "carrierwave", "~> 3.0"
 gem "sidekiq"
 gem "letter_opener", group: :development
+gem 'accuweather', '~> 0.2.3'
+gem 'rest-client', '~> 2.1'
