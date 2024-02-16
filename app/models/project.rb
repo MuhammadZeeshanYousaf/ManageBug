@@ -8,7 +8,7 @@ class Project < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
   validates :name, presence: true, length: { minimum: 3 }
-  validates :image, presence: true
+  validates :image, attached: true, content_type: [:png, :jpg, :jpeg]
   validates :creator_id, presence: true
   validate :creator_not_qa_or_dev
 

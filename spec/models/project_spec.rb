@@ -71,7 +71,8 @@ RSpec.describe Project, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_length_of(:name).is_at_least(3) }
-    it { should validate_presence_of(:image) }
+    it { should validate_attached_of(:image) }
+    it { should validate_content_type_of(:image).allowing(:png, :jpg, :jpeg).rejecting(/(?i)\.(?:(?!png$|jpg$|jpeg$)[a-z]+)$/) }
     it { should validate_presence_of(:creator_id) }
   end
   

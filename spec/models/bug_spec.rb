@@ -57,6 +57,14 @@ RSpec.describe Bug, type: :model do
     # A bug must belongs to a project.
     it { should validate_presence_of(:project_id) }
     it { should validate_presence_of(:deadline) }
+    it 'is valid without screenshot' do
+      should_not validate_attached_of(:screenshot)
+    end
+    it 'is validate only for (png, gif) content types on :screenshot' do
+      should validate_content_type_of(:screenshot)
+               .allowing(:png, :gif)
+               .rejecting(/(?i)\.(?:(?!png$|gif$)[a-z]+)$/)
+    end
     it 'validates that deadline cannot be in the past' do
       bug.deadline = Date.yesterday
       expect(bug).not_to be_valid
@@ -94,7 +102,7 @@ RSpec.describe Bug, type: :model do
   context 'Description and Screenshot are optional' do
     it 'is valid without description and screenshot' do
       bug.description = nil
-      bug.screenshot = nil
+      bug.screenshot.purge
       expect(bug).to be_valid
     end
   end

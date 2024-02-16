@@ -20,7 +20,10 @@ class Bug < ApplicationRecord
   validate :deadline_cannot_be_in_the_past
   validate :assignee_is_developer
   validate :deadline_cannot_be_in_the_past, on: :create
-  mount_uploader :screenshot, ImageUploader
+  # mount_uploader :screenshot, ImageUploader
+  has_one_attached :screenshot
+  validates :screenshot, content_type: [:png, :gif]
+
   default_scope -> { order(created_at: :asc) }
 
   private
