@@ -1,7 +1,9 @@
 class Project < ApplicationRecord
   has_many :project_users, dependent: :destroy
   has_many :users, through: :project_users
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
   has_many :bugs
   belongs_to :creator, class_name: 'User'
 
