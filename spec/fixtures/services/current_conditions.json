@@ -1,0 +1,17 @@
+[
+  {
+    "LocalObservationDateTime": "2024-02-19T13:17:00+05:00",
+    "EpochTime": 1708330620,
+    "WeatherText": "Clouds and sun",
+    "WeatherIcon": 4,
+    "HasPrecipitation": false,
+    "PrecipitationType": null,
+    "IsDayTime": true,
+    "Temperature": {
+      "Metric": { "Value": 21.4, "Unit": "C", "UnitType": 17 },
+      "Imperial": { "Value": 70.0, "Unit": "F", "UnitType": 18 }
+    },
+    "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/current-weather/259953?lang=en-us",
+    "Link": "http://www.accuweather.com/en/pk/gulberg/259953/current-weather/259953?lang=en-us"
+  }
+]

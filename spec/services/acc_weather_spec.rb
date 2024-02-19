@@ -3,15 +3,15 @@ require 'rails_helper'
 
 RSpec.describe AccuWeatherService do
   subject { described_class.new }
-  let(:mocked_key) { { 'Key' => 'mocked_key' } }
+  let(:mocked_location) { fixture_services_file 'location.json' }
 
   describe '#get_location_key' do
     context 'when the API call is successful' do
       it 'returns the location key' do
         # Stubbing the RestClient.get method to return the mocked response
-        allow_any_instance_of(RestClient::Resource).to receive(:get).and_return(mocked_key.to_json)
+        allow_any_instance_of(RestClient::Resource).to receive(:get).and_return(mocked_location.to_json)
 
-        expect(subject.get_location_key).to eq('mocked_key')
+        expect(subject.get_location_key).to eq(mocked_location['Key'])
       end
     end
 
@@ -26,31 +26,16 @@ RSpec.describe AccuWeatherService do
   end
 
   describe '#current_conditions' do
-    let(:mocked_temperature) {
-      {
-        'Temperature'=>{
-          'Metric'=> {
-            'Value'=>20.8,
-            'Unit'=>'C',
-            'UnitType'=>17
-          },
-          'Imperial'=>{
-            'Value'=>69.0,
-            'Unit'=>'F',
-            'UnitType'=>18
-          }
-        },
-      }
-    }
+    let(:mocked_current_conditions) { fixture_services_file 'current_conditions.json' }
 
     context 'when location key is valid' do
       it 'returns Temperature' do
-        allow(subject).to receive(:get_location_key).and_return(mocked_key)
+        allow(subject).to receive(:get_location_key).and_return(mocked_location['Key'])
         mocked_key = subject.get_location_key
 
-        allow_any_instance_of(RestClient::Resource).to receive(:get).and_return(mocked_temperature.to_json)
+        allow_any_instance_of(RestClient::Resource).to receive(:get).and_return(mocked_current_conditions.to_json)
 
-        expect(subject.current_conditions(mocked_key)).to eq(mocked_temperature)
+        expect(subject.current_conditions(mocked_key)).to eq(mocked_current_conditions)
       end
     end
 
@@ -63,6 +48,14 @@ RSpec.describe AccuWeatherService do
       end
     end
 
+  end
+
+
+  private
+
+  def fixture_services_file(filename)
+    json_file_path = File.join(RSpec.configuration.fixture_path, 'services/' + filename.to_s)
+    JSON.parse File.read(json_file_path)
   end
 
 end
