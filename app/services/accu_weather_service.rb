@@ -31,11 +31,11 @@ class AccuWeatherService
   private
 
   def parse_response(res)
-    JSON.parse(res)
+    JSON.parse res
   end
 
-  def error? response
-    response.is_a?(Hash) and response[:error].present?
+  def error?(key)
+    key.is_a?(Hash) and key[:error].present?
   end
 
   def locations_endpoint
