@@ -1,0 +1,17 @@
+one:
+  id: 1
+  name: "carlospaz"
+  email: "carlospaz@email.com"
+  password: '12345678'
+  phone_number: '0923113256789'
+  role: 'manager'
+two:
+  id: 2
+  name: "ramiroroque"
+  email: "ramiroroque@email.com"
+  role: 'developer'
+three:
+  id: 3
+  name: "juanperez"
+  email: "juanperez@email.com"
+  role: 'QA'

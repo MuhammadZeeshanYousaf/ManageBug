@@ -13,7 +13,7 @@
         </div>
         <hr />
         <main class="px-3">
-          <%= form_for(obj, url: bugs_path, method: :post, :html => { class: "form-horizontal", role: "form" }) do |f| %>
+          <%= form_for(obj, url: project_bugs_path(@project), method: :post, :html => { class: "form-horizontal", role: "form" }) do |f| %>
             <div class="d-flex align-items-center">
               <div class="form-control border-0 mt-2 d-flex w-50">
                 <%= f.label :user_id, "Assign to", class: "text-nowrap" %>
@@ -21,7 +21,7 @@
               </div>
               <div class="form-control border-0 mt-2">
                 <%= f.label :deadline, "Add due date" %>
-                <%= f.date_field :deadline, class: "p-2 rounded-2", style: "border: 0.5px dashed grey;" %>
+                <%= f.date_field :deadline, class: "p-2 rounded-2", style: "border: 0.5px dashed grey;", onkeypress: "return false" %>
               </div>
             </div>
             <div class="form-control border-0" style="outline: none;">

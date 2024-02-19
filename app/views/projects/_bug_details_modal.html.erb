@@ -10,36 +10,36 @@
         <div class="row g-0">
           <div class="col-6">
             <div class="d-flex align-items-center p-3">
-              <%= button_tag(class: "btn px-4 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}", style: "border-radius: 4px;") do%>
+              <%= button_tag(class: "btn px-4 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "started" ? "custom-bg-info" : "custom-bg-success"}", style: "border-radius: 4px;") do%>
                 <%# <button class="btn btn-sm custom-bg-danger"> %>
                 <%= obj.status.capitalize %>
                 <%# </button> %>
               <% end %>
-              <%= button_tag(class: "btn dropdown-toggle dropdown-toggle-split ms-1 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "in_progress" ? "custom-bg-info" : "custom-bg-success"}", "data-bs-toggle": "dropdown", "aria-expand": "false", style: "border-radius: 4px;") do%>
+              <%= button_tag(class: "btn dropdown-toggle dropdown-toggle-split ms-1 #{obj.status == "pending" ? "custom-bg-danger" : obj.status == "started" ? "custom-bg-info" : "custom-bg-success"}", "data-bs-toggle": "dropdown", "aria-expand": "false", style: "border-radius: 4px;") do%>
                 <%# <button class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"> %>
                 <span class="visually-hidden">Toggle Dropdown</span>
                 <%# </button> %>
               <% end %>
               <ul class="dropdown-menu">
                 <li>
-                  <%= link_to bug_path(obj, status: "pending"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                  <%= link_to project_bug_path(@project, obj, status: "pending"), class: "dropdown-item", data: { turbo_method: :put } do %>
                     <span class="custom-bg-danger p-2">Pending</span>
                   <% end %>
                 </li>
                 <li class="mt-2">
-                  <%= link_to bug_path(obj, status: "in_progress"), class: "dropdown-item", data: { turbo_method: :put } do %>
-                    <span class="custom-bg-info p-2">In progress</span>
+                  <%= link_to project_bug_path(@project, obj, status: "started"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <span class="custom-bg-info p-2">Started</span>
                   <% end %>
                 </li>
                 <% if obj.bug_type == "bug" %>
                   <li class="mt-2">
-                    <%= link_to bug_path(obj, status: "resolved"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <%= link_to project_bug_path(@project, obj, status: "resolved"), class: "dropdown-item", data: { turbo_method: :put } do %>
                       <span class="custom-bg-success p-2">Resolved</span>
                     <% end %>
                   </li>
                 <% else %>
                   <li class="mt-2">
-                    <%= link_to bug_path(obj, status: "closed"), class: "dropdown-item", data: { turbo_method: :put } do %>
+                    <%= link_to project_bug_path(@project, obj, status: "closed"), class: "dropdown-item", data: { turbo_method: :put } do %>
                       <span class="custom-bg-success p-2">Close</span>
                     <% end %>
                   </li>
@@ -83,7 +83,7 @@
             <div class="border-top pt-4 px-3">
               <h3><%= obj.title %></h3>
               <div class="mt-4">
-                <img src=<%= obj.screenshot %> style="height: 140px; width: 100%;" />
+                <img src="<%= obj.screenshot %>" style="height: 140px; width: 100%;" alt="bug-screenshot"/>
               </div>
               <div class="mt-5">
                 <p>Bug details</p>

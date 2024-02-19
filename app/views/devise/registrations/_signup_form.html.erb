@@ -1,11 +1,9 @@
 <div class="h-100 w-100 d-flex justify-content-center align-items-center">
   <div class="w-50">
-    <h2 class="mb-4">Sign up</h2>
+    <h2 class="mb-4">Sign Up</h2>
     <p class="fw-light custom-text-color mb-4">Please fill your information below.</p>
-
     <%= form_for(resource, as: resource_name, :html => {class: "form-horizontal w-100", role: "form"}, url: registration_path(resource_name, role: params[:role])) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-
       <div class="input-group mt-3">
         <span class="input-group-text form-background-custom border-end-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -17,7 +15,6 @@
           <%= f.label :name, for: "floatingName" %>
         </div>
       </div>
-
       <div class="input-group mt-3">
         <span class="input-group-text form-background-custom border-end-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
@@ -25,11 +22,10 @@
           </svg>
         </span>
         <div class="form-floating">
-          <%= f.text_field :phone_number, class: "form-control form-background-custom border-start-0", id: "floatingName", placeholder: "Mobile Number" %>
+          <%= f.number_field :phone_number, class: "form-control form-background-custom border-start-0", id: "floatingName", placeholder: "Mobile Number" %>
           <%= f.label :phone_number, "Mobile Number", for: "floatingName" %>
         </div>
       </div>
-
       <div class="input-group mt-3">
         <span class="input-group-text form-background-custom border-end-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -41,7 +37,6 @@
           <%= f.label :email, for: "floatingEmail" %>
         </div>
       </div>
-
       <div class="input-group mt-3">
         <span class="input-group-text form-background-custom border-end-0">
           <img src="/images/lock-icon.png", alt="Lock Icon", style="height: 20px; width: 17px" />
@@ -51,7 +46,6 @@
           <%= f.label :password, for: "floatingPassword" %>
         </div>
       </div>
-
       <div class="input-group mt-3">
         <span class="input-group-text form-background-custom border-end-0">
           <img src="/images/lock-icon.png", alt="Lock Icon", style="height: 20px; width: 17px" />
@@ -61,12 +55,11 @@
           <%= f.label :password_confirmation, for: "floatingConfirmPassword" %>
         </div>
       </div>
-
       <div class="actions">
         <%# <%= f.submit "Sign up", class: "btn btn-primary btn-lg mt-3" %>
         <%= button_tag(type: "submit", class: "btn btn-primary btn-lg mt-4") do %>
           <div class="d-flex align-items-center">
-            <span class="me-4">Sign up</span> 
+            <span class="me-4">Sign Up</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M1.5625 15.875L8.4375 9L1.5625 2.125" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -75,15 +68,10 @@
       </div>
       <%= f.hidden_field :role, value: params[:role] %>
     <% end %>
-
     <hr class="my-4" />
-
     <div class="d-flex w-100 align-items-center justify-content-between">
       <span class="custom-text-color">Already have an account?</span>
-      <%# <span>Login to your account</span> %>
       <%= link_to "Login to your account", new_user_session_path, class: "text-decoration-none fw-bold" %>
     </div>
-
-    <%# <%= render "devise/shared/links" %>
   </div>
 </div>

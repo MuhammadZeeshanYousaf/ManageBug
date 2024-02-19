@@ -1,0 +1,122 @@
+{
+  "Headline": {
+    "EffectiveDate": "2024-02-19T07:00:00+05:00",
+    "EffectiveEpochDate": 1708308000,
+    "Severity": 7,
+    "Text": "Noticeably cooler Monday",
+    "Category": "cooler",
+    "EndDate": "2024-02-19T19:00:00+05:00",
+    "EndEpochDate": 1708351200,
+    "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?lang=en-us",
+    "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?lang=en-us"
+  },
+  "DailyForecasts": [
+    {
+      "Date": "2024-02-19T07:00:00+05:00",
+      "EpochDate": 1708308000,
+      "Temperature": {
+        "Minimum": { "Value": 51.0, "Unit": "F", "UnitType": 18 },
+        "Maximum": { "Value": 71.0, "Unit": "F", "UnitType": 18 }
+      },
+      "Day": {
+        "Icon": 14,
+        "IconPhrase": "Partly sunny w/ showers",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Rain",
+        "PrecipitationIntensity": "Moderate"
+      },
+      "Night": {
+        "Icon": 37,
+        "IconPhrase": "Hazy moonlight",
+        "HasPrecipitation": false
+      },
+      "Sources": ["AccuWeather"],
+      "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=1\u0026lang=en-us",
+      "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=1\u0026lang=en-us"
+    },
+    {
+      "Date": "2024-02-20T07:00:00+05:00",
+      "EpochDate": 1708394400,
+      "Temperature": {
+        "Minimum": { "Value": 50.0, "Unit": "F", "UnitType": 18 },
+        "Maximum": { "Value": 70.0, "Unit": "F", "UnitType": 18 }
+      },
+      "Day": {
+        "Icon": 5,
+        "IconPhrase": "Hazy sunshine",
+        "HasPrecipitation": false
+      },
+      "Night": {
+        "Icon": 37,
+        "IconPhrase": "Hazy moonlight",
+        "HasPrecipitation": false
+      },
+      "Sources": ["AccuWeather"],
+      "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=2\u0026lang=en-us",
+      "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=2\u0026lang=en-us"
+    },
+    {
+      "Date": "2024-02-21T07:00:00+05:00",
+      "EpochDate": 1708480800,
+      "Temperature": {
+        "Minimum": { "Value": 47.0, "Unit": "F", "UnitType": 18 },
+        "Maximum": { "Value": 69.0, "Unit": "F", "UnitType": 18 }
+      },
+      "Day": {
+        "Icon": 5,
+        "IconPhrase": "Hazy sunshine",
+        "HasPrecipitation": false
+      },
+      "Night": {
+        "Icon": 37,
+        "IconPhrase": "Hazy moonlight",
+        "HasPrecipitation": false
+      },
+      "Sources": ["AccuWeather"],
+      "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=3\u0026lang=en-us",
+      "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=3\u0026lang=en-us"
+    },
+    {
+      "Date": "2024-02-22T07:00:00+05:00",
+      "EpochDate": 1708567200,
+      "Temperature": {
+        "Minimum": { "Value": 46.0, "Unit": "F", "UnitType": 18 },
+        "Maximum": { "Value": 70.0, "Unit": "F", "UnitType": 18 }
+      },
+      "Day": {
+        "Icon": 5,
+        "IconPhrase": "Hazy sunshine",
+        "HasPrecipitation": false
+      },
+      "Night": {
+        "Icon": 37,
+        "IconPhrase": "Hazy moonlight",
+        "HasPrecipitation": false
+      },
+      "Sources": ["AccuWeather"],
+      "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=4\u0026lang=en-us",
+      "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=4\u0026lang=en-us"
+    },
+    {
+      "Date": "2024-02-23T07:00:00+05:00",
+      "EpochDate": 1708653600,
+      "Temperature": {
+        "Minimum": { "Value": 45.0, "Unit": "F", "UnitType": 18 },
+        "Maximum": { "Value": 70.0, "Unit": "F", "UnitType": 18 }
+      },
+      "Day": {
+        "Icon": 5,
+        "IconPhrase": "Hazy sunshine",
+        "HasPrecipitation": false
+      },
+      "Night": {
+        "Icon": 37,
+        "IconPhrase": "Hazy moonlight",
+        "HasPrecipitation": false
+      },
+      "Sources": ["AccuWeather"],
+      "MobileLink": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=5\u0026lang=en-us",
+      "Link": "http://www.accuweather.com/en/pk/gulberg/259953/daily-weather-forecast/259953?day=5\u0026lang=en-us"
+    }
+  ]
+}
