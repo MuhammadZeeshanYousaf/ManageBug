@@ -5,7 +5,6 @@ class AccuWeatherService
   def initialize
     @api_key = Rails.application.credentials.dig(:accu_weather, :api_key)
     @client = RestClient::Resource.new 'https://dataservice.accuweather.com'
-    @check_error = -> (response) { return response[:error] if response.is_a?(Hash) and response[:error].present? }
   end
 
   # @param location[Array[Float, Float]]
@@ -19,13 +18,13 @@ class AccuWeatherService
 
   # @param key[String|Hash]
   def current_conditions(key)
-    @check_error.(key)
+    return if error? key
     parse_response @client[current_conditions_endpoint(key)].get
   end
 
   # @param key[String|Hash]
   def daily_forecasts(key)
-    @check_error.(key)
+    return if error? key
     parse_response @client[daily_forcast_endpoint(key)].get
   end
 
@@ -33,6 +32,10 @@ class AccuWeatherService
 
   def parse_response(res)
     JSON.parse(res)
+  end
+
+  def error? response
+    response.is_a?(Hash) and response[:error].present?
   end
 
   def locations_endpoint
